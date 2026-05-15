@@ -12,52 +12,96 @@
     font-style: normal;
 }
 
+header {
+    background-color: rgb(50, 124, 72);
+    color: rgb(168, 245, 193);
+}
+
+footer {
+    background-color: rgb(50, 124, 72);
+    color: rgb(168, 245, 193);
+}
 
 body {
     margin: 0;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    p {
-        font-family: 'Montserrat', sans-serif;
-    }
-    h1 {
-        font-family: 'ElmsSans', sans-serif;
-        letter-spacing: 8px;
-    }
-    h2 {
-        letter-spacing: 4px;
-        font-family: 'ElmsSans', sans-serif;
-    }
-    h3 {
-        letter-spacing: 3px;
-        font-family: 'ElmsSans', sans-serif;
-    }
-    li {
-        font-family: 'ElmsSans', sans-serif;
-    }
 }
 
-div.boton {
-    padding: 15px 50px;
+a {
+    text-decoration: none;
+}
+
+
+.botonInicioSesion {
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
+    padding: 10px
 }
-p.textoComun{
-    color: rgb(44, 163, 80);
-    width: 500px;
+
+.btnInicioSesion {
+    margin-left: auto;
+    font-size: 16px;
+    padding: 13px;
+    border-radius: 100px;
+    background-color: rgb(45, 105, 63);
+    border-width: 0px;
+    cursor: pointer;
+    transition: .3s ease;
 }
+
+.btnInicioSesion:hover {
+    background-color: rgb(32, 78, 46);
+}
+
+.botonClubes {
+    display: flex;
+    justify-content: center;
+    padding: 5px
+}
+
+.btnClubes {
+    font-size: 20px;
+    padding: 13px;
+    border-radius: 100px;
+    background-color: rgb(45, 105, 63);
+    border-width: 0px;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.btnClubes:hover {
+    background-color: rgb(32, 78, 46);
+}
+
 h1 {
-    color: rgb(11, 75, 35)
+    font-family: 'ElmsSans', sans-serif;
+    letter-spacing: 8px;
+    color: rgb(168, 245, 193);
+}
+p {
+    color: rgb(168, 245, 193); 
+    font-family: 'Montserrat', sans-serif;
+}
+h2 {
+    color: rgb(168, 245, 193);
+    letter-spacing: 4px;
+    font-family: 'ElmsSans', sans-serif;
+}
+h3 {
+    color: rgb(168, 245, 193);
+    letter-spacing: 3px;
+    font-family: 'ElmsSans', sans-serif;
+}
+li {
+    color: rgb(168, 245, 193);
+    font-family: 'ElmsSans', sans-serif;
 }
 main{
     flex: 1;
 }
 
-footer {
-    background-color: #232323;
-    color: white;
-}
 div.grupo_bloques_footer {
     padding: 0px 100px;
     display: flex;
