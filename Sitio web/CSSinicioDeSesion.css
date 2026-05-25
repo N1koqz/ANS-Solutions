@@ -1,0 +1,46 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('Montserrat-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ElmsSans';
+    src: url('ElmsSans-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1 {
+    font-family: 'ElmsSans', sans-serif;
+    letter-spacing: 8px;
+    color: rgb(168, 245, 193);
+}
+
+h2 {
+    color: rgb(168, 245, 193);
+    letter-spacing: 4px;
+    font-family: 'ElmsSans', sans-serif;
+}
+
+h3 {
+    color: rgb(168, 245, 193);
+    letter-spacing: 3px;
+    font-family: 'ElmsSans', sans-serif;
+}
+
+h4 {
+    color: rgb(168, 245, 193);
+    letter-spacing: 2px;
+    font-family: 'ElmsSans', sans-serif;    
+}
+
+p {
+    color: rgb(168, 245, 193); 
+    font-family: 'Montserrat', sans-serif;
+}
