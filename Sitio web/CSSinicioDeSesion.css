@@ -108,7 +108,15 @@ form {
     width: 100%;
 }
 
-input{
+.input-email{
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:16px;
+}
+
+.input-password{
     padding:12px;
     margin-bottom:15px;
     border:1px solid #ccc;
@@ -123,7 +131,7 @@ input{
 }
 
 .btnIniciarSesion {
-    font-size: 20px;
+    font-size: 17px;
     padding: 13px;
     border-radius: 100px;
     background-color: rgb(45, 105, 63);
