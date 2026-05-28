@@ -7,48 +7,54 @@
 </head>
 
 <body>
-    <div>
-        <h5><a href="index.html"> 🡰 Volver a Inicio</a></h5>
-    </div>
 
-    <div class="contenedor-lateral">
+    <div class="contenedor-general">
+        <div class="contenedor-lateral">
+            <div>
+                <h5><a href="index.html" style="color:rgb(168, 245, 193)"> 🡰 Volver a Inicio</a></h5>
+            </div>
+                <br>
+                <br>
+                <br>
+            <div class="inicio-container">
 
-        <div class="inicio-container">
+        <!--    <div class="logo-area">
+                <img src="logo.svg" alt="Logo">
+            </div> -->
 
-    <!--    <div class="logo-area">
-            <img src="logo.svg" alt="Logo">
-        </div> -->
+                <div class="contenido-inicio">
 
-            <div class="contenido-inicio">
+                    <h1>Inicio de sesión</h1>
 
-                <h1>Inicio de sesión</h1>
+                </div>
 
             </div>
 
+            <form action="/login" method="POST">
+                <input class="input-email"
+                    type="email"
+                    name="email"
+                    placeholder="Correo Electrónico"
+                    required
+                    autofocus
+                >
+
+                <input class="input-password"
+                    type="password"
+                    name="password"
+                    placeholder="Contraseña"
+                    required
+                >
+                <div class="botonIniciarSesion">
+                    <button type="submit" class="btnIniciarSesion" style="color: rgb(168, 245, 193)">
+                        Iniciar Sesión
+                    </button>
+                </div> 
+            </form>
+
         </div>
 
-        <form action="/login" method="POST">
-            <input class="input-email"
-                type="email"
-                name="email"
-                placeholder="Correo Electrónico"
-                required
-                autofocus
-            >
-
-            <input class="input-password"
-                type="password"
-                name="password"
-                placeholder="Contraseña"
-                required
-            >
-            <div class="botonIniciarSesion">
-                <button type="submit" class="btnIniciarSesion" style="color: rgb(168, 245, 193)">
-                    Iniciar Sesión
-                </button>
-            </div> 
-        </form>
-
+        <div class="img-panel"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
