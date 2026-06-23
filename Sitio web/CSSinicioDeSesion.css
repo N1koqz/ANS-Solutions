@@ -180,6 +180,16 @@ button:hover{
     position:relative;
     animation:fadeIn 1s ease;
 }
+.logo-area{
+    height: 100px;
+    width: 100px;
+    position:relative;
+    background-size:cover;
+    background-position:center;
+    background-image:url('LOGO\ ANS.png');
+    animation:fadeIn 1s ease;
+    justify-self: center;
+}
 
 @keyframes fadeIn{
 
