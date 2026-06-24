@@ -186,7 +186,7 @@ button:hover{
     position:relative;
     background-size:cover;
     background-position:center;
-    background-image:url('LOGO\ ANS.png');
+    background-image:url('LOGO\ ANS\ SMALL.svg');
     animation:fadeIn 1s ease;
     justify-self: center;
 }
