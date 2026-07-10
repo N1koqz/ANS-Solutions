@@ -1,62 +1,61 @@
 <html>
+<head>
 	<meta charset="UTF-8">
 	<title> MG Fut </title>
-	<link href="CSSindex.css" type="text/css" rel="stylesheet">
-<head>
-	
+	<link href="CSSinicioDeSesion.css" type="text/css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 
 <body>
-	<header>
-		<div class="botonInicioSesion">
-			<h3> MG Fut</h3>
-			<br>
-			<button class= "btnInicioSesion">
-				<a href="inicioDeSesion.html" style="color:#8BA3C5">Iniciar sesión</a>
-			</button>
-			<br>
-		</div>
-	</header>
 
-    <main>
-		<div class="botonClubes">
-			<button class="btnClubes">
-				<a href="clubes.html" style="color: #8BA3C5">Clubes</a>
-			</button>
-		</div>
+    <div class="contenedor-general">
+        <div class="contenedor-lateral">
+            <div>
+                <h5><a href="index.html" style="color:#8BA3C5"> 🡰 Volver a Inicio</a></h5>
+            </div>
+            
+                
+            
+            <div class="inicio-container">
+                <div class="logo-area"></div>
+            
 
-	</main>
+                <div class="contenido-inicio">
 
+                    <h1>Inicio de sesión</h1>
 
-	<p class="textoComun">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet tempore consectetur, aperiam animi tenetur id natus quaerat sunt dignissimos officiis et rerum reprehenderit soluta commodi corporis laudantium doloremque quae pariatur!</p>
-	<footer>
-		<br>
-		<hr>
-		<h2 align="center"> ¿Quiénes somos?</h2>
-		<div class="grupo_bloques_footer">
-			<div class="bloques_footer">
-				<p> Somos ANS Solutions, un grupo de desarrollo de software independiente localizado en Rivera, Uruguay.
-					Estamos especializados en la creacion de sitios webs y bases de datos para negocios y empresas grandes.
-				</p>
-			</div>
-			<div class="bloques_footer">
-				<h3 align="center">Contactos: </h3>
-				<ul>
-					<li>Email: contacto@ANSsolutions.com</li>
-					<li>Teléfono: +598 091-981-722</li>
-				</ul>
-			</div>
-			<div class="bloques_footer">
-				<p>© Copyright 2026 ANS Solutions. Todos los derechos reservados. 
-					Ninguna parte de este sistema o sitio web será reproducido, de ninguna forma, 
-					incluyendo pero no limitando al host de un sitio web no autorizado por ANS Solutions.
-				</p>
-			</div>
-		</div>
-		<br>
-		<br>
-	</footer>
+                </div>
+
+            </div>
+
+            <form action="/login" method="POST">
+                <input class="input-email"
+                    type="email"
+                    name="email"
+                    placeholder="Correo Electrónico"
+                    required
+                    autofocus
+                >
+
+                <input class="input-password"
+                    type="password"
+                    name="password"
+                    placeholder="Contraseña"
+                    required
+                >
+                <div class="botonIniciarSesion">
+                    <button type="submit" class="btnIniciarSesion" style="color: #8BA3C5">
+                        Iniciar Sesión
+                    </button>
+                </div> 
+            </form>
+
+        </div>
+
+        <div class="img-panel"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
 </body>
-
 </html>
