@@ -181,8 +181,8 @@ button:hover{
     animation:fadeIn 1s ease;
 }
 .logo-area{
-    height: 100px;
-    width: 100px;
+    height: 50px;
+    width: 50px;
     position:relative;
     background-size:cover;
     background-position:center;
