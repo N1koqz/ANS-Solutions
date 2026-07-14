@@ -136,6 +136,31 @@ li {
     color: #8BA3C5;
     font-family: 'ElmsSans', sans-serif;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+thead{
+    background-color: #f5f5f5;
+}
+th, td{
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}   
+th {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    color: #23354D;
+}
+td {
+    font-family: 'ElmsSans', sans-serif;
+    color: #23354D;
+}
 main{
     flex: 1;
 }
