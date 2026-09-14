@@ -9,76 +9,71 @@
 	<header>
 		<div class="MGfut">
 			<h2> MG Fut</h2>
+				<div class="botonesMenu">
+				<button class="btnClubes">
+					<a href="clubes.html" style="color: #8BA3C5">Clubes</a>
+				</button>
+
+				<button class="btnJugadores">
+					<a href="jugadores.html" style="color: #8BA3C5">Jugadores</a>
+				</button>
+
+				<button class="btnFixture">
+					<a href="fixture.html" style="color: #8BA3C5">Fixture</a>
+				</button>
+
+				<button class="btnEstadisticas">
+					<a href="estadisticas.html" style="color: #8BA3C5">Estadísticas</a>
+				</button>
+
+			</div>
 		</div>
 	</header>
 
     <main>
-		<div class="botonesMenu">
-			<button class="btnClubes">
-				<a href="clubes.html" style="color: #8BA3C5">Clubes</a>
-			</button>
-
-			<button class="btnJugadores">
-				<a href="jugadores.html" style="color: #8BA3C5">Jugadores</a>
-			</button>
-
-			<button class="btnFixture">
-				<a href="fixture.html" style="color: #8BA3C5">Fixture</a>
-			</button>
-
-			<button class="btnEstadisticas">
-				<a href="estadisticas.html" style="color: #8BA3C5">Estadísticas</a>
-			</button>
-
-		</div>
-
+		<br>
 		<div>
-			<table>
-				<thead>
+			<form action="buscar_jugador.php" method="POST" class="barraBusqueda">
+                <input class="input-barraBusqueda"
+                    type="search"
+                    name="busqueda"
+                    placeholder="Buscar Jugadores"
+                    required
+                    autofocus
+                >
+				<input type="image" class="botonBusqueda" alt="Buscar" src="search.svg">
+            </form>
+		</div>
+		<div> 
+			<table> 
+				<thead> 
 					<tr>
-						<th>Nombre</th>
-						<th>Apellido</th>
-						<th>Fecha de Nacimiento</th>
-						<th>Posición</th>
-                        <th>N° de camiseta</th>
-                        <th>Club</th>
-                        <th>Categoría</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>X</td>
-						<td>X</td>
-						<td>x</td>
-						<td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-					</tr>
+						<th>Cédula</th> 
+						<th>Nombre</th> 
+						<th>Apellido</th> 
+						<th>Fecha de Nacimiento</th> 
+						<th>Posición</th> 
+						<th>N° de camiseta</th> 
+						<th>Club</th> 
+						<th>Categoría</th>
+						<th>Masa</th> 
+						<th>Altura</th>
+						<th>Fuerza Peso</th> 
+					</tr> 
+				</thead> 
 
-					<tr>
-						<td>X</td>
-						<td>X</td>
-						<td>x</td>
-						<td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-					</tr>
+				<tbody id="tabla_jugadores"> 
+				</tbody> 
+			</table> 
 
-					<tr>
-						<td>X</td>
-						<td>X</td>
-						<td>x</td>
-						<td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-					</tr>
-
-				</tbody>
-			</table>
-		</div>		
+			<script> 
+				fetch("lista_jugadores.php") 
+					.then(response => response.text()) 
+					.then(data => { 
+						document.getElementById("tabla_jugadores").innerHTML = data; 
+					}); 
+			</script>
+		</div>
 
 	</main>
 
