@@ -1,0 +1,6 @@
+DirectoryIndex index.php
+
+RewriteEngine On
+
+# Mantiene operativos los marcadores o enlaces antiguos al migrar de HTML a PHP.
+RewriteRule ^(index|menuInicio|clubes|jugadores|fixture|estadisticas)\.html$ /ANS-Solutions/Sitio%20web/$1.php [R=302,L,NE,NC]

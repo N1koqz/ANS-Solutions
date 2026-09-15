@@ -177,3 +177,20 @@ div.grupo_bloques_footer {
 div.bloques_footer {
     width: 800px;
 }
+
+@media (max-width: 768px) {
+    .botonesMenu {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    div.grupo_bloques_footer {
+        padding: 0 24px;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    div.bloques_footer {
+        width: 100%;
+    }
+}

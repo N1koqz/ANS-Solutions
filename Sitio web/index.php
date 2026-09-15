@@ -1,8 +1,17 @@
-<html>
+<!DOCTYPE html>
+<?php
+session_start();
+if (!empty($_SESSION['usuario'])) {
+    header('Location: ./menuInicio.php', true, 303);
+    exit();
+}
+?>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-	<meta charset="UTF-8">
-	<title> MG Fut </title>
-	<link href="CSSindex.css" type="text/css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title> MG Fut </title>
+    <link href="CSSindex.css" type="text/css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 
@@ -13,16 +22,15 @@
             <div class="inicio-container">
                 <div class="logo-area"></div>
             
-
                 <div class="contenido-inicio">
-
                     <h1>Inicio de sesión</h1>
-
                 </div>
-
             </div>
 
             <form action="login.php" method="POST">
+                <?php if (!empty($_SESSION['login_error'])): ?>
+                    <p role="alert"><?php echo htmlspecialchars($_SESSION['login_error'], ENT_QUOTES, 'UTF-8'); unset($_SESSION['login_error']); ?></p>
+                <?php endif; ?>
                 <input class="input-email"
                     type="email"
                     name="email"
@@ -43,7 +51,6 @@
                     </button>
                 </div> 
             </form>
-
         </div>
 
         <div class="img-panel"></div>

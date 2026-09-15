@@ -69,7 +69,7 @@ body {
 
 .contenedor-lateral{
     min-height:100vh;
-    width:50%;
+    width:42%;
     padding:25px;
 }
 
@@ -101,6 +101,10 @@ body {
 @media (max-width: 992px){
 
     .inicio-container{
+        width:100%;
+    }
+
+    .contenedor-lateral{
         width:100%;
     }
 
@@ -172,7 +176,7 @@ button:hover{
 } */
 
 .img-panel{
-    width:70%;
+    flex:1;
     height:100vh;
     background-image:url('galaxia.jpg');
     background-size:cover;
@@ -188,7 +192,7 @@ button:hover{
     background-position:center;
     background-image:url('LOGO\ ANS\ SMALL.svg');
     animation:fadeIn 1s ease;
-    justify-self: center;
+    margin: 0 auto;
 }
 
 @keyframes fadeIn{
