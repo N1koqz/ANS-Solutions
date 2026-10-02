@@ -34,7 +34,7 @@
 		</div>
 	</header>
 
-	<main>
+    <main>
 		<br>
 		<div>
 			<form action="buscar_jugador.php" method="POST" class="barraBusqueda">
@@ -52,10 +52,14 @@
 			<table> 
 				<thead> 
 					<tr>
-						<th>Club</th> 
-                        <th>Ciudad</th> 
-						<th>Año de Fundación</th> 
-						<th>Partidos Jugados</th> 
+						<th>ID Sanción</th> 
+                        <th>Cédula</th> 
+						<th>Nombre</th> 
+						<th>Apellido</th> 
+						<th>Tipo de Sanción</th> 
+						<th>Motivo</th> 
+						<th>Fecha de Suspensión</th> 
+						<th>Fecha Límite</th> 
 					</tr> 
 				</thead> 
 
@@ -64,7 +68,7 @@
 			</table> 
 
 			<script> 
-				fetch("lista_jugadores.php") 
+				fetch("listar_sanciones.php") 
 					.then(response => response.text()) 
 					.then(data => { 
 						document.getElementById("tabla_jugadores").innerHTML = data; 
