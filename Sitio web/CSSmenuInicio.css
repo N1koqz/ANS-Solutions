@@ -146,6 +146,21 @@ a {
     background-color: #02122F;
 }
 
+.btnSanciones {
+    font-size: 20px;
+    padding: 10px;
+    width: 160px;
+    border-radius: 100px;
+    background-color: #23354D;
+    border-width: 0px;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.btnSanciones:hover {
+    background-color: #02122F;
+}
+
 h1 {
     font-family: 'ElmsSans', sans-serif;
     letter-spacing: 8px;
