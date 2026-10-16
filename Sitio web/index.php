@@ -1,3 +1,12 @@
+<?php
+	require_once "baseDeDatos.php";
+
+	//Si ya hay sesion se va directo al menu
+	if (estaLogueado()) {
+		header("Location: menuInicio.php");
+		exit();
+	}
+?>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -23,6 +32,15 @@
             </div>
 
             <form action="login.php" method="POST">
+                <?php if (isset($_GET["error"])): ?>
+                <p style="color: #d96b6b">
+                    <?php
+                        $errores = ["2" => "Demasiados intentos, esperá un minuto"];
+                        echo is_string($_GET["error"]) ? ($errores[$_GET["error"]] ?? "Correo o contraseña incorrectos") : "Correo o contraseña incorrectos";
+                    ?>
+                </p>
+                <?php endif; ?>
+
                 <input class="input-email"
                     type="email"
                     name="email"
@@ -48,8 +66,6 @@
 
         <div class="img-panel"></div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
 </body>
 </html>

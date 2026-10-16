@@ -1,0 +1,36 @@
+/* Editor de administracion. Se carga despues de CSSmenuInicio.css */
+.editor-pestanas { display: flex; gap: 8px; margin: 0 0 16px; flex-wrap: wrap; }
+.editor-pestanas a { padding: 8px 18px; border: 1px solid #2c3a4f; border-radius: 6px; color: #8BA3C5; text-decoration: none; background: #16202e; }
+.editor-pestanas a.activa { background: #8BA3C5; color: #16202e; font-weight: 600; }
+
+#editor { background: #16202e; color: #dbe5f3; border: 1px solid #2c3a4f; border-radius: 10px; padding: 20px; max-width: 1100px; margin: 0 auto 24px; }
+
+.slider { display: flex; align-items: center; gap: 8px; margin-top: 16px; }
+.slider-pista { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x proximity; flex: 1; padding: 6px 2px 10px; scrollbar-width: thin; }
+.slider-flecha { flex: none; width: 38px; height: 38px; border-radius: 50%; border: 1px solid #2c3a4f; background: #1f2d42; color: #8BA3C5; font-size: 22px; line-height: 1; cursor: pointer; }
+.slider-flecha:hover { background: #2a3d59; }
+
+.tarjeta { flex: 0 0 170px; scroll-snap-align: center; text-align: left; display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid #2c3a4f; border-radius: 8px; background: #1f2d42; color: #dbe5f3; cursor: pointer; }
+.tarjeta small { color: #8BA3C5; }
+.tarjeta.activa { border-color: #8BA3C5; background: #2a3d59; box-shadow: 0 0 0 2px #8BA3C5; }
+.slider-vacio { margin: 12px auto; color: #8BA3C5; }
+
+.slider-rango { width: 100%; margin: 4px 0 20px; accent-color: #8BA3C5; }
+
+#form_editor h3 { margin: 0 0 14px; font-weight: 600; }
+.editor-campos { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.editor-campos label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: #8BA3C5; }
+.editor-campos input, .editor-campos select, .editor-campos textarea { padding: 8px 10px; border: 1px solid #2c3a4f; border-radius: 6px; background: #0f1824; color: #dbe5f3; font: inherit; }
+.editor-campos input[readonly] { opacity: .6; }
+
+.editor-acciones { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.editor-acciones button { padding: 9px 18px; border-radius: 6px; border: 1px solid #8BA3C5; background: transparent; color: #8BA3C5; cursor: pointer; font: inherit; }
+.editor-acciones .btn-guardar { background: #8BA3C5; color: #16202e; font-weight: 600; }
+.editor-acciones .btn-eliminar { border-color: #d96b6b; color: #d96b6b; margin-left: auto; }
+
+#mensaje { min-height: 1.4em; margin: 12px 0 0; }
+#mensaje.ok { color: #7fc9a0; }
+#mensaje.error { color: #e48a8a; }
+
+.slider-flecha:focus-visible, .tarjeta:focus-visible, .editor-acciones button:focus-visible, .editor-campos *:focus-visible { outline: 2px solid #8BA3C5; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .slider-pista { scroll-behavior: auto; } }
