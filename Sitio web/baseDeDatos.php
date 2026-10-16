@@ -109,7 +109,7 @@ function celda($valor) {
 //Columna de acciones, solo se imprime si el usuario es admin
 function botonesAdmin($pagina, $id) {
     if (esAdmin()) {
-        echo "<td><a href='" . $pagina . "?id=" . urlencode($id) . "#sel'>Editar</a></td>";
+        echo "<td><a class='botonEditar' href='" . $pagina . "?id=" . urlencode($id) . "#sel'><img src='edit_icon.svg' alt='Editar'></a></td>";
     }
 }
 
@@ -127,16 +127,19 @@ function menu() {
 		<div class="MGfut">
 			<h2> MG Fut</h2>
 			<div class="botonesMenu">
-<?php foreach ($botones as [$clase, $archivo, $texto]): ?>
+    <?php foreach ($botones as [$clase, $archivo, $texto]): ?>
 				<button class="<?= $clase ?>">
-					<a href="<?= $archivo ?>" style="color: #8BA3C5"><?= $texto ?></a>
+					<a href="<?= $archivo ?>" style="color: #e6e6e6"><?= $texto ?></a>
 				</button>
 <?php endforeach; ?>
-				<form action="login.php" method="POST" style="display:inline">
-					<input type="hidden" name="csrf" value="<?= tokenCsrf() ?>">
-					<input type="hidden" name="accion" value="salir">
-					<button class="btnCerrarSesion" type="submit" style="color: #8BA3C5">Cerrar sesión</button>
-				</form>
+				<form action="login.php" method="POST" style="margin:0">
+                    <input type="hidden" name="csrf" value="<?= tokenCsrf() ?>">
+                    <input type="hidden" name="accion" value="salir">
+                    <button class="btnCerrarSesion" type="submit" style="color: #e6e6e6">
+                        Cerrar sesión
+                        <img src="log_off_icon.svg" alt="" width="20" height="20">
+                    </button>
+                </form>
 			</div>
 		</div>
 	</header>
@@ -150,15 +153,19 @@ function pie() {
 		<br>
 		<hr>
 		<h2 align="center"> ¿Quiénes somos?</h2>
+        
 		<div class="grupo_bloques_footer">
+            
 			<div class="bloques_footer">
 				<p> Somos ANS Solutions, un grupo de desarrollo de software independiente localizado en Rivera, Uruguay.
 					Estamos especializados en la creacion de sitios webs y bases de datos para negocios y empresas grandes.
 				</p>
 			</div>
 			<div class="bloques_footer">
+                
 				<h3 align="center">Contactos: </h3>
 				<ul>
+                    
 					<li>Email: contacto@ANSsolutions.com</li>
 					<li>Teléfono: +598 091-981-722</li>
 				</ul>
@@ -170,6 +177,9 @@ function pie() {
 				</p>
 			</div>
 		</div>
+        <div class="franja_logo">
+            <img src="LOGO ANS SMALL.svg" width="100px" alt="ANS Solutions">
+        </div>
 		<br>
 		<br>
 	</footer>

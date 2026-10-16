@@ -217,19 +217,11 @@
 		#editor .mensaje.ok { background: #1c3a2c; color: #9fe0bc; }
 		#editor .mensaje.error { background: #3d2226; color: #f0a3a3; }
 
-		.slider { display: flex; align-items: center; gap: 8px; }
-		.slider-pista { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x proximity; flex: 1; padding: 6px 2px 10px; scrollbar-width: thin; }
-		.slider-flecha { flex: none; display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; border: 1px solid #2c3a4f; background: #1f2d42; color: #8BA3C5; font-size: 22px; line-height: 1; text-decoration: none; }
-		a.slider-flecha:hover { background: #2a3d59; }
-		.slider-flecha.inactiva { opacity: .35; }
-		.slider-info { margin: 2px 0 20px; font-size: 13px; color: #8BA3C5; text-align: center; }
-
 		.tarjeta { flex: 0 0 170px; scroll-snap-align: center; scroll-margin-inline: 40px; scroll-margin-block: 140px; display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid #2c3a4f; border-radius: 8px; background: #1f2d42; color: #dbe5f3; text-decoration: none; }
 		.tarjeta small { color: #8BA3C5; }
 		.tarjeta:hover { background: #26374f; }
 		.tarjeta.activa { border-color: #8BA3C5; background: #2a3d59; box-shadow: 0 0 0 2px #8BA3C5; }
-		.slider-vacio { margin: 12px auto; color: #8BA3C5; }
-
+		
 		.editor-campos { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
 		.editor-campos label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: #8BA3C5; }
 		.editor-campos input, .editor-campos select, .editor-campos textarea { padding: 8px 10px; border: 1px solid #2c3a4f; border-radius: 6px; background: #0f1824; color: #dbe5f3; font: inherit; }
@@ -333,33 +325,6 @@
 <?php if ($flash): ?>
 			<p class="mensaje <?= $flash["ok"] ? "ok" : "error" ?>" role="status"><?= htmlspecialchars($flash["texto"]) ?></p>
 <?php endif; ?>
-
-			<div class="slider">
-<?php if ($anterior !== null): ?>
-				<a class="slider-flecha" href="<?= $url($anterior) ?>#sel" aria-label="Anterior">&#8249;</a>
-<?php else: ?>
-				<span class="slider-flecha inactiva" aria-hidden="true">&#8249;</span>
-<?php endif; ?>
-
-				<div class="slider-pista">
-<?php foreach ($registros as $i => $registro): ?>
-					<a class="tarjeta<?= $i === $indice ? ' activa' : '' ?>"<?= $i === $indice ? ' id="sel"' : '' ?> href="<?= $url($registro[$pk]) ?>#sel">
-						<strong><?= htmlspecialchars($registro["_etiqueta"]) ?></strong>
-						<small>#<?= htmlspecialchars($registro[$pk]) ?></small>
-					</a>
-<?php endforeach; ?>
-<?php if (!$registros): ?>
-					<p class="slider-vacio">No hay resultados. Probá con otra búsqueda o creá uno nuevo.</p>
-<?php endif; ?>
-				</div>
-
-<?php if ($siguiente !== null): ?>
-				<a class="slider-flecha" href="<?= $url($siguiente) ?>#sel" aria-label="Siguiente">&#8250;</a>
-<?php else: ?>
-				<span class="slider-flecha inactiva" aria-hidden="true">&#8250;</span>
-<?php endif; ?>
-			</div>
-			<p class="slider-info"><?= count($registros) ?> resultado(s). La barra de búsqueda de abajo filtra el slider y la tabla.</p>
 
 <?php if ($confirmando): ?>
 			<form action="<?= htmlspecialchars($pagina) ?>" method="POST" class="confirmar">
