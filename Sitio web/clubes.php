@@ -18,7 +18,6 @@
 	<main>
 		<br>
 <?php mostrarEditor("clubes"); ?>
-		<div>
 			<form method="GET" class="barraBusqueda">
 				<input class="input-barraBusqueda"
 					type="search"
@@ -29,7 +28,6 @@
 				>
 				<input type="image" class="botonBusqueda" alt="Buscar" src="search.svg">
 			</form>
-		</div>
 		<div> 
 			<table> 
 				<thead> 

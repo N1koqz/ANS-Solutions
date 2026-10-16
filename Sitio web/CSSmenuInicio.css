@@ -11,22 +11,14 @@
     font-weight: normal;
     font-style: normal;
 }
-/* Paleta de colores:
-    rgb(168, 245, 193);     #8BA3C5
-    rgb(50, 124, 72);       #495B7D
-    rgb(45, 105, 63);       #23354D
-    rgb(32, 78, 46);        #02122F  
-*/
 
 
 header {
-    background-color: #495B7D;
-    color: #8BA3C5;
+    background-color: #000000;
 }
 
 footer {
-    background-color: #495B7D;
-    color: #8BA3C5;
+    background-color: #000000;
 }
 
 body {
@@ -55,7 +47,7 @@ a {
     padding: 10px;
     gap: 17px;
     transition: .3s ease;
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     border-color: #23354D;
 }
 
@@ -74,7 +66,7 @@ a {
 
 .botonBusqueda {
     height: 100%;
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     border-color: #23354D;
     cursor: pointer;
     transition: .3s ease;
@@ -91,14 +83,14 @@ a {
     padding: 10px;
     width: 120px;
     border-radius: 100px;
-    background-color: #23354D;
+    background-color: #000000;
     border-width: 0px;
     cursor: pointer;
     transition: .3s ease;
 }
 
 .btnClubes:hover {
-    background-color: #02122F;
+    background-color: #222222;
 }
 
 .btnJugadores {
@@ -106,14 +98,14 @@ a {
     padding: 10px;
     width: 120px;
     border-radius: 100px;
-    background-color: #23354D;
+    background-color: #000000;
     border-width: 0px;
     cursor: pointer;
     transition: .3s ease;
 }
 
 .btnJugadores:hover {
-    background-color: #02122F;
+    background-color: #222222;
 }
 
 .btnFixture {
@@ -121,14 +113,14 @@ a {
     padding: 10px;
     width: 120px;
     border-radius: 100px;
-    background-color: #23354D;
+    background-color: #000000;
     border-width: 0px;
     cursor: pointer;
     transition: .3s ease;
 }
 
 .btnFixture:hover {
-    background-color: #02122F;
+    background-color: #222222;
 }
 
 .btnEstadisticas {
@@ -136,14 +128,14 @@ a {
     padding: 10px;
     width: 160px;
     border-radius: 100px;
-    background-color: #23354D;
+    background-color: #000000;
     border-width: 0px;
     cursor: pointer;
     transition: .3s ease;
 }
 
 .btnEstadisticas:hover {
-    background-color: #02122F;
+    background-color: #222222;
 }
 
 .btnSanciones {
@@ -151,37 +143,37 @@ a {
     padding: 10px;
     width: 160px;
     border-radius: 100px;
-    background-color: #23354D;
+    background-color: #000000;
     border-width: 0px;
     cursor: pointer;
     transition: .3s ease;
 }
 
 .btnSanciones:hover {
-    background-color: #02122F;
+    background-color: #222222;
 }
 
 h1 {
     font-family: 'ElmsSans', sans-serif;
     letter-spacing: 8px;
-    color: #8BA3C5;
+    color: #ffffff;
 }
 p {
-    color: #8BA3C5; 
+    color: #ffffff; 
     font-family: 'Montserrat', sans-serif;
 }
 h2 {
-    color: #8BA3C5;
+    color: #ffffff;
     letter-spacing: 4px;
     font-family: 'ElmsSans', sans-serif;
 }
 h3 {
-    color: #8BA3C5;
+    color: #ffffff;
     letter-spacing: 3px;
     font-family: 'ElmsSans', sans-serif;
 }
 li {
-    color: #8BA3C5;
+    color: #ffffff;
     font-family: 'ElmsSans', sans-serif;
 }
 
@@ -196,21 +188,21 @@ table {
     margin-left: 10px;
 }
 thead{
-    background-color: #f5f5f5;
+    background-color: #000000;
 }
 th, td{
     padding: 12px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid hsl(0, 0%, 0%);
 }   
 th {
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
-    color: #23354D;
+    color: #ffffff;
 }
 td {
     font-family: 'ElmsSans', sans-serif;
-    color: #23354D;
+    color: #000000;
 }
 main{
     flex: 1;
