@@ -332,6 +332,7 @@ div.bloques_footer {
     width: 100px;
     height: 100px;
     flex-shrink: 0;
+    animation: panning 1.35s cubic-bezier(0.33, 1, 0.68, 1) forwards;
 }
 
 .pelota {
