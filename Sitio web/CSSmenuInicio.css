@@ -12,6 +12,26 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'AnotherDanger';
+    src: url('AnotherDangerSlanted.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'DangerZoneWarning';
+    src: url('DangerZoneWarning.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'College';
+    src: url('College.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 header {
     background-color: #000000;
@@ -73,11 +93,13 @@ a {
     transition: .3s ease;
 }
 
-.botonEditar {
-    background-color: #ffffff;
-    border-color: #23354D;
+.botonEditar img{
     cursor: pointer;
     transition: .3s ease;
+    filter: invert(1) brightness(0.9);
+    width: 25px;
+    height: 25px;
+    color: #e6e6e6;
 }
 
 .botonesMenu {
@@ -87,22 +109,61 @@ a {
     align-items: center;
 }
 
-.btnClubes {
+.btnCarnets,
+.btnPartidos,
+.btnClubes,
+.btnJugadores,
+.btnCerrarSesion,
+.btnFixture,
+.btnEstadisticas,
+.btnSanciones {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'ElmsSans';
+
     font-size: 20px;
     padding: 10px;
-    width: 120px;
     border-radius: 100px;
     background-color: #000000;
-    border-width: 0px;
+    border: none;
     cursor: pointer;
     transition: .3s ease;
+
+    color: #e6e6e6;
+    text-decoration: none;
+    position: relative;
+    box-sizing: border-box;
 }
 
-.btnClubes:hover {
-    background-color: #222222;
+/* Anchos individuales */
+.btnCarnets,
+.btnPartidos,
+.btnClubes,
+.btnJugadores,
+.btnFixture {
+    width: 120px;
+}
+
+.btnCerrarSesion {
+    width: 180px;
+    gap: 5px;
+}
+
+.btnEstadisticas,
+.btnSanciones {
+    width: 160px;
+}
+
+.btnCerrarSesion img {
+    filter: invert(1) brightness(0.9);
+    width: 32px;
+    height: 32px;
 }
 
 .btnClubes,
+.btnCarnets,
+.btnPartidos,
 .btnJugadores,
 .btnFixture,
 .btnEstadisticas,
@@ -111,6 +172,21 @@ a {
     position: relative;
 }
 
+.btnCarnets:hover,
+.btnPartidos:hover,
+.btnClubes:hover,
+.btnJugadores:hover,
+.btnFixture:hover,
+.btnEstadisticas:hover,
+.btnSanciones:hover,
+.btnCerrarSesion:hover {
+    background-color: #222222;
+    transform: scale(1.15);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btnCarnets::after,
+.btnPartidos::after,
 .btnClubes::after,
 .btnJugadores::after,
 .btnFixture::after,
@@ -127,7 +203,8 @@ a {
     transition: .3s ease;
     transform: translateX(-50%);
 }
-
+.btnPartidos:hover::after,
+.btnCarnets:hover::after,
 .btnClubes:hover::after,
 .btnJugadores:hover::after,
 .btnFixture:hover::after,
@@ -135,90 +212,6 @@ a {
 .btnSanciones:hover::after,
 .btnCerrarSesion:hover::after {
     width: 80%;
-}
-.btnJugadores {
-    font-size: 20px;
-    padding: 10px;
-    width: 120px;
-    border-radius: 100px;
-    background-color: #000000;
-    border-width: 0px;
-    cursor: pointer;
-    transition: .3s ease;
-}
-
-.btnCerrarSesion {
-    font-size: 20px;
-    padding: 10px;
-    width: 180px;
-    border-radius: 100px;
-    background-color: #000000;
-    border-width: 0px;
-    cursor: pointer;
-    transition: .3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.btnCerrarSesion img {
-    filter: invert(1) brightness(0.9);
-    width: 32px;
-    height: 32px;
-}
-
-
-.btnCerrarSesion:hover {
-    background-color: #222222;
-}
-
-.btnJugadores:hover {
-    background-color: #222222;
-}
-
-.btnFixture {
-    font-size: 20px;
-    padding: 10px;
-    width: 120px;
-    border-radius: 100px;
-    background-color: #000000;
-    border-width: 0px;
-    cursor: pointer;
-    transition: .3s ease;
-}
-
-.btnFixture:hover {
-    background-color: #222222;
-}
-
-.btnEstadisticas {
-    font-size: 20px;
-    padding: 10px;
-    width: 160px;
-    border-radius: 100px;
-    background-color: #000000;
-    border-width: 0px;
-    cursor: pointer;
-    transition: .3s ease;
-}
-
-.btnEstadisticas:hover {
-    background-color: #222222;
-}
-
-.btnSanciones {
-    font-size: 20px;
-    padding: 10px;
-    width: 160px;
-    border-radius: 100px;
-    background-color: #000000;
-    border-width: 0px;
-    cursor: pointer;
-    transition: .3s ease;
-}
-
-.btnSanciones:hover {
-    background-color: #222222;
 }
 
 h1 {
@@ -256,12 +249,12 @@ table {
     margin-bottom: 100px;
 }
 thead{
-    background-color: #000000;
+    background-color: hsl(0, 0%, 0%);
 }
 th, td{
     padding: 12px;
     text-align: center;
-    border-bottom: 1px solid hsl(0, 0%, 0%);
+    border-bottom: 1px solid hsl(0, 0%, 84%);
 }   
 th {
     font-family: 'Montserrat', sans-serif;
@@ -271,8 +264,15 @@ th {
 }
 td {
     font-family: 'ElmsSans', sans-serif;
-    color: #000000;
-    background-color: #f0efef;
+    color: #ffffff;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #2a6e33;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #3ba849;
 }
 main{
     flex: 1;
@@ -303,4 +303,87 @@ div.bloques_footer {
 .franja_logo img {
     width: 100px;
     display: block;
+}
+
+.logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+
+    color: #e6e6e6;
+    text-decoration: none;
+}
+
+.logo h1 {
+    font-family: 'College', sans-serif;
+    margin: 0;
+    font-size: 4rem;
+    font-style: italic;
+    letter-spacing: 50%;
+    position: absolute;
+    translate: 200px 5px;
+
+    animation: panning 1s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+
+.red-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+}
+
+.pelota {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+
+    translate: 55px 7px;
+
+    animation: rotate 5s linear infinite;
+    transform-origin: center;
+}
+
+.pelota img {
+    width: 100px;
+    height: 100px;
+}
+
+.red {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+
+    translate: 0px -40px;
+
+    width: 200px;
+    height: 200px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes panning {
+    from {
+        transform: translateX(-100vw);
+    }
+
+    to {
+        transform: translateX(0);
+    }
 }

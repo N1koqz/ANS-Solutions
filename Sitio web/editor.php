@@ -1,5 +1,5 @@
 <?php
-    //Editor integrado en jugadores.php, clubes.php y sanciones.php (solo se muestra a administradores)
+    //Editor integrado en jugadores.php, clubes.php, sanciones.php y estadisticas.php (solo se muestra a administradores)
     //Uso en cada pagina:
     //  arriba de la pagina:  require_once "editor.php" y luego procesarEditor("jugadores")
     //  dentro del head:  estilosEditor()
@@ -39,8 +39,8 @@
                 "etiqueta" => "nombre",
                 "busqueda" => "CONCAT_WS(' ', nombre, ciudad, fundacion)",
                 "campos" => [
-                    "nombre" => ["etiqueta" => "Nombre", "tipo" => "text", "max" => 60],
-                    "ciudad" => ["etiqueta" => "Ciudad", "tipo" => "text", "max" => 60],
+                    "nombre" => ["etiqueta" => "Nombre", "tipo" => "text", "max" => 50],
+                    "ciudad" => ["etiqueta" => "Ciudad", "tipo" => "text", "max" => 50],
                     "fundacion" => ["etiqueta" => "Año de Fundación", "tipo" => "number", "min" => 1800, "max" => 2100, "paso" => 1, "entero" => true]
                 ]
             ],
@@ -53,11 +53,30 @@
                 "etiqueta" => "CONCAT(tipo_sancion, ' (', ci, ')')",
                 "busqueda" => "CONCAT_WS(' ', id_sancion, ci, tipo_sancion, motivo)",
                 "campos" => [
-                    "ci" => ["etiqueta" => "Jugador", "tipo" => "select", "origen" => ["jugadores", "ci", "CONCAT(ci, ' - ', nombre, ' ', apellido)"]],
+                    "ci" => ["etiqueta" => "Cédula del jugador", "tipo" => "number", "min" => 1, "max" => 2147483647, "paso" => 1, "entero" => true, "existe" => ["jugadores", "ci", "No existe ningún jugador con esa cédula"]],
                     "tipo_sancion" => ["etiqueta" => "Tipo de Sanción", "tipo" => "text", "max" => 50],
                     "motivo" => ["etiqueta" => "Motivo", "tipo" => "textarea", "max" => 255],
                     "fecha_sancion" => ["etiqueta" => "Fecha de Suspensión", "tipo" => "date"],
                     "fecha_limite" => ["etiqueta" => "Fecha Límite", "tipo" => "date"]
+                ]
+            ],
+            "estadisticas" => [
+                "pagina" => "estadisticas.php",
+                "titulo" => "estadísticas",
+                "tabla" => "estadisticas",
+                "pk" => "id_estadistica",
+                "auto" => true,
+                "etiqueta" => "CONCAT('Partido ', id_partido, ' - CI ', ci_jugador)",
+                "busqueda" => "CONCAT_WS(' ', id_partido, ci_jugador)",
+                "regla" => "validarEstadistica",
+                "campos" => [
+                    "id_partido" => ["etiqueta" => "Partido", "tipo" => "select", "orden" => "t DESC", "origen" => ["partidos", "id_partido",
+                        "CONCAT(fecha, ' - ', (SELECT nombre FROM club WHERE club.id_club = partidos.id_club_local), ' vs ', (SELECT nombre FROM club WHERE club.id_club = partidos.id_club_visitante))"]],
+                    "ci_jugador" => ["etiqueta" => "Cédula del jugador", "tipo" => "number", "min" => 1, "max" => 2147483647, "paso" => 1, "entero" => true, "existe" => ["jugadores", "ci", "No existe ningún jugador con esa cédula"]],
+                    "goles" => ["etiqueta" => "Goles", "tipo" => "number", "min" => 0, "max" => 30, "paso" => 1, "entero" => true],
+                    "asistencias" => ["etiqueta" => "Asistencias", "tipo" => "number", "min" => 0, "max" => 30, "paso" => 1, "entero" => true],
+                    "amarillas" => ["etiqueta" => "Tarjetas amarillas", "tipo" => "number", "min" => 0, "max" => 2, "paso" => 1, "entero" => true],
+                    "rojas" => ["etiqueta" => "Tarjetas rojas", "tipo" => "number", "min" => 0, "max" => 1, "paso" => 1, "entero" => true]
                 ]
             ]
         ];
@@ -66,7 +85,47 @@
     //Opciones de un campo select: [["v" => valor, "t" => texto], ...]
     function opcionesDe($conn, $campo) {
         [$tabla, $valor, $texto] = $campo["origen"];
-        return $conn->query("SELECT $valor AS v, $texto AS t FROM $tabla ORDER BY t")->fetch_all(MYSQLI_ASSOC);
+        $orden = $campo["orden"] ?? "t";
+        return $conn->query("SELECT $valor AS v, $texto AS t FROM $tabla ORDER BY $orden")->fetch_all(MYSQLI_ASSOC);
+    }
+
+    //Reglas de estadisticas que involucran varios campos a la vez. Devuelve el mensaje de error o null
+    function validarEstadistica($conn, $v, $idActual) {
+        //El partido y su resultado
+        $stmt = $conn->prepare("SELECT id_club_local, id_club_visitante, goles_local, goles_visitante FROM partidos WHERE id_partido = ?");
+        $stmt->bind_param("s", $v["id_partido"]);
+        $stmt->execute();
+        $partido = $stmt->get_result()->fetch_assoc();
+
+        //El club del jugador
+        $stmt = $conn->prepare("SELECT id_club FROM jugadores WHERE ci = ?");
+        $stmt->bind_param("s", $v["ci_jugador"]);
+        $stmt->execute();
+        $jugador = $stmt->get_result()->fetch_assoc();
+
+        if (!$partido || !$jugador) {
+            return "Partido o jugador no válido";
+        }
+        $club = (int)$jugador["id_club"];
+        if ($club !== (int)$partido["id_club_local"] && $club !== (int)$partido["id_club_visitante"]) {
+            return "El jugador no pertenece a ninguno de los clubes de ese partido";
+        }
+
+        //Un jugador solo puede tener una fila por partido
+        $actual = (int)$idActual;
+        $stmt = $conn->prepare("SELECT 1 FROM estadisticas WHERE id_partido = ? AND ci_jugador = ? AND id_estadistica <> ?");
+        $stmt->bind_param("ssi", $v["id_partido"], $v["ci_jugador"], $actual);
+        $stmt->execute();
+        if ($stmt->get_result()->num_rows > 0) {
+            return "Ese jugador ya tiene estadísticas cargadas en ese partido (editá el registro existente)";
+        }
+
+        //Si el partido ya tiene resultado, el jugador no puede haber marcado mas goles que su club
+        $golesClub = $club === (int)$partido["id_club_local"] ? $partido["goles_local"] : $partido["goles_visitante"];
+        if ($golesClub !== null && (int)$v["goles"] > (int)$golesClub) {
+            return "El jugador no puede tener más goles (" . (int)$v["goles"] . ") que su club en ese partido (" . (int)$golesClub . ")";
+        }
+        return null;
     }
 
     //Valida un valor segun la definicion del campo. Devuelve el mensaje de error o null si es valido
@@ -81,6 +140,16 @@
                 if (!is_numeric($valor) || $valor < $campo["min"] || $valor > $campo["max"]
                     || (!empty($campo["entero"]) && filter_var($valor, FILTER_VALIDATE_INT) === false)) {
                     return $campo["etiqueta"] . " debe ser un número entre " . $campo["min"] . " y " . $campo["max"];
+                }
+                //Si el campo debe corresponder a un registro existente (por ejemplo la cédula de un jugador)
+                if (isset($campo["existe"])) {
+                    [$tablaRef, $columnaRef, $mensajeRef] = $campo["existe"];
+                    $stmt = $conn->prepare("SELECT 1 FROM $tablaRef WHERE $columnaRef = ?");
+                    $stmt->bind_param("s", $valor);
+                    $stmt->execute();
+                    if ($stmt->get_result()->num_rows === 0) {
+                        return $mensajeRef;
+                    }
                 }
                 break;
             case "date":
@@ -151,12 +220,23 @@
                 if ($id === "") {
                     $volver(false, "Registro no indicado");
                 }
+                if ($tipo === "clubes") {
+                    $conn->begin_transaction();
+                }
                 $stmt = $conn->prepare("DELETE FROM $tabla WHERE $pk = ?");
                 $stmt->bind_param("s", $id);
                 $stmt->execute();
                 if ($stmt->affected_rows > 0) {
+                    //Al eliminar un club tambien se elimina su usuario de acceso
+                    if ($tipo === "clubes") {
+                        $stmt = $conn->prepare("DELETE FROM usuario WHERE club = ? AND rol <> 'admin'");
+                        $stmt->bind_param("s", $id);
+                        $stmt->execute();
+                        $conn->commit();
+                    }
                     $volver(true, "Registro eliminado");
                 }
+                $conn->rollback();
                 $volver(false, "El registro no existe");
             }
 
@@ -177,13 +257,47 @@
                 $valores[$nombre] = trim($datos[$nombre]);
             }
 
+            //Regla entre campos propia de la entidad (por ejemplo las estadisticas)
+            if (!empty($entidad["regla"])) {
+                $error = $entidad["regla"]($conn, $valores, $accion === "editar" ? $id : "");
+                if ($error) {
+                    $volver(false, $error, $accion === "editar" ? $id : "", $datos);
+                }
+            }
+
             if ($accion === "crear") {
+                //Los clubes se crean junto con su usuario de acceso. La contraseña nunca se devuelve al formulario
+                $clave = "";
+                if ($tipo === "clubes") {
+                    $clave = isset($_POST["clave"]) && is_string($_POST["clave"]) ? $_POST["clave"] : "";
+                    if (strlen($clave) < 8 || strlen($clave) > 72) {
+                        $volver(false, "La contraseña debe tener entre 8 y 72 caracteres", "", $datos);
+                    }
+                    $stmt = $conn->prepare("SELECT 1 FROM usuario WHERE email = ?");
+                    $stmt->bind_param("s", $valores["nombre"]);
+                    $stmt->execute();
+                    if ($stmt->get_result()->num_rows > 0) {
+                        $volver(false, "Ya existe un usuario con ese nombre", "", $datos);
+                    }
+                    $conn->begin_transaction();
+                }
+
                 $columnas = implode(", ", array_keys($valores));
                 $marcas = implode(", ", array_fill(0, count($valores), "?"));
                 $stmt = $conn->prepare("INSERT INTO $tabla ($columnas) VALUES ($marcas)");
                 $stmt->bind_param(str_repeat("s", count($valores)), ...array_values($valores));
                 $stmt->execute();
-                $volver(true, "Registro creado", (string)($entidad["auto"] ? $conn->insert_id : $valores[$pk]));
+                $idNuevo = (string)($entidad["auto"] ? $conn->insert_id : $valores[$pk]);
+
+                if ($tipo === "clubes") {
+                    $hash = password_hash($clave, PASSWORD_DEFAULT);
+                    $rol = "club";
+                    $stmt = $conn->prepare("INSERT INTO usuario (nombre, email, `contraseña`, rol, club) VALUES (?, ?, ?, ?, ?)");
+                    $stmt->bind_param("sssss", $valores["nombre"], $valores["nombre"], $hash, $rol, $idNuevo);
+                    $stmt->execute();
+                    $conn->commit();
+                }
+                $volver(true, "Registro creado", $idNuevo);
             }
 
             $asignaciones = implode(", ", array_map(fn($columna) => "$columna = ?", array_keys($valores)));
@@ -193,6 +307,7 @@
             $stmt->execute();
             $volver(true, "Cambios guardados", $id);
         } catch (mysqli_sql_exception $e) {
+            $conn->rollback();
             error_log("editor.php: " . $e->getMessage());
             $mensajes = [
                 1062 => "Ya existe un registro con esos datos",
@@ -209,35 +324,7 @@
             return;
         }
 ?>
-	<style>
-		#editor { background: #16202e; color: #dbe5f3; border: 1px solid #2c3a4f; border-radius: 10px; padding: 20px; max-width: 1100px; margin: 0 auto 24px; }
-		#editor h3 { margin: 0 0 14px; font-weight: 600; }
-
-		#editor .mensaje { margin: 0 0 14px; padding: 10px 14px; border-radius: 6px; }
-		#editor .mensaje.ok { background: #1c3a2c; color: #9fe0bc; }
-		#editor .mensaje.error { background: #3d2226; color: #f0a3a3; }
-
-		.tarjeta { flex: 0 0 170px; scroll-snap-align: center; scroll-margin-inline: 40px; scroll-margin-block: 140px; display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid #2c3a4f; border-radius: 8px; background: #1f2d42; color: #dbe5f3; text-decoration: none; }
-		.tarjeta small { color: #8BA3C5; }
-		.tarjeta:hover { background: #26374f; }
-		.tarjeta.activa { border-color: #8BA3C5; background: #2a3d59; box-shadow: 0 0 0 2px #8BA3C5; }
-		
-		.editor-campos { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
-		.editor-campos label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: #8BA3C5; }
-		.editor-campos input, .editor-campos select, .editor-campos textarea { padding: 8px 10px; border: 1px solid #2c3a4f; border-radius: 6px; background: #0f1824; color: #dbe5f3; font: inherit; }
-		.editor-campos input[readonly] { opacity: .6; }
-
-		.editor-acciones { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
-		#editor button, #editor .btn-nuevo, #editor .btn-eliminar { padding: 9px 18px; border-radius: 6px; border: 1px solid #8BA3C5; background: transparent; color: #8BA3C5; cursor: pointer; font: inherit; text-decoration: none; }
-		#editor .btn-guardar { background: #8BA3C5; color: #16202e; font-weight: 600; }
-		#editor .btn-eliminar { border-color: #d96b6b; color: #d96b6b; }
-		.editor-acciones .btn-eliminar { margin-left: auto; }
-
-		.confirmar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 14px; margin-bottom: 20px; border: 1px solid #d96b6b; border-radius: 8px; background: #2a1a1f; }
-		.confirmar p { margin: 0; flex: 1 1 260px; }
-
-		#editor a:focus-visible, #editor button:focus-visible, #editor input:focus-visible, #editor select:focus-visible, #editor textarea:focus-visible { outline: 2px solid #8BA3C5; outline-offset: 2px; }
-	</style>
+	<link rel="stylesheet" href="CSSeditor.css">
 <?php
     }
 
@@ -321,7 +408,7 @@
         };
 ?>
 		<section id="editor">
-			<h3>Editor de <?= htmlspecialchars($entidad["titulo"]) ?></h3>
+			<h2>Editor de <?= htmlspecialchars($entidad["titulo"]) ?></h2>
 <?php if ($flash): ?>
 			<p class="mensaje <?= $flash["ok"] ? "ok" : "error" ?>" role="status"><?= htmlspecialchars($flash["texto"]) ?></p>
 <?php endif; ?>
@@ -369,6 +456,12 @@
 <?php endif; ?>
 					</label>
 <?php endforeach; ?>
+<?php if ($tipo === "clubes" && !$seleccionado): ?>
+					<label>
+						<span>Contraseña de acceso del club</span>
+						<input type="password" name="clave" minlength="8" maxlength="72" autocomplete="new-password" required>
+					</label>
+<?php endif; ?>
 				</div>
 
 				<div class="editor-acciones">

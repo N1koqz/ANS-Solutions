@@ -1,5 +1,5 @@
 <?php
-	require_once "baseDeDatos.php";
+	require_once "plantilla.php";
 	requerirLogin(true);
 	require_once "editor.php";
 	procesarEditor("jugadores");

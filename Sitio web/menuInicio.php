@@ -1,4 +1,4 @@
-<?php require_once "baseDeDatos.php"; requerirLogin(true); ?>
+<?php require_once "plantilla.php"; requerirLogin(true); ?>
 <html>
 <head>
 	<meta charset="UTF-8">

@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set("America/Montevideo");
+
 //Se establecen los parametros de la base de datos
 $servername = "127.0.0.1";
 $username = "root";
@@ -101,88 +103,34 @@ function patronBusqueda() {
     return "%" . addcslashes(textoBusqueda(), "%_\\") . "%";
 }
 
-//Devuelve una celda de tabla con el valor escapado
-function celda($valor) {
-    return "<td>" . htmlspecialchars((string)$valor) . "</td>";
-}
-
-//Columna de acciones, solo se imprime si el usuario es admin
-function botonesAdmin($pagina, $id) {
-    if (esAdmin()) {
-        echo "<td><a class='botonEditar' href='" . $pagina . "?id=" . urlencode($id) . "#sel'><img src='edit_icon.svg' alt='Editar'></a></td>";
+//Club al que pertenece el usuario. La columna usuario.club guarda el id del club;
+//el JOIN con la tabla club ademas confirma que ese club existe.
+//Devuelve null para administradores, sin sesion o usuarios sin club valido asignado
+function clubDelUsuario() {
+    global $conn;
+    static $club = false;
+    if ($club !== false) {
+        return $club;
     }
+    $club = null;
+    if (estaLogueado() && !esAdmin() && isset($_SESSION["email"])) {
+        $stmt = $conn->prepare("SELECT c.id_club FROM usuario u INNER JOIN club c ON c.id_club = u.club WHERE u.email = ?");
+        $stmt->bind_param("s", $_SESSION["email"]);
+        $stmt->execute();
+        $fila = $stmt->get_result()->fetch_assoc();
+        if ($fila && $fila["id_club"] !== null) {
+            $club = (int)$fila["id_club"];
+        }
+    }
+    return $club;
 }
 
-//Cabecera y menu compartidos por todas las paginas
-function menu() {
-    $botones = [
-        ["btnClubes", "clubes.php", "Clubes"],
-        ["btnJugadores", "jugadores.php", "Jugadores"],
-        ["btnFixture", "fixture.php", "Fixture"],
-        ["btnEstadisticas", "estadisticas.php", "Estadísticas"],
-        ["btnSanciones", "sanciones.php", "Sanciones"]
-    ];
-?>
-	<header>
-		<div class="MGfut">
-			<h2> MG Fut</h2>
-			<div class="botonesMenu">
-    <?php foreach ($botones as [$clase, $archivo, $texto]): ?>
-				<button class="<?= $clase ?>">
-					<a href="<?= $archivo ?>" style="color: #e6e6e6"><?= $texto ?></a>
-				</button>
-<?php endforeach; ?>
-				<form action="login.php" method="POST" style="margin:0">
-                    <input type="hidden" name="csrf" value="<?= tokenCsrf() ?>">
-                    <input type="hidden" name="accion" value="salir">
-                    <button class="btnCerrarSesion" type="submit" style="color: #e6e6e6">
-                        Cerrar sesión
-                        <img src="log_off_icon.svg" alt="" width="20" height="20">
-                    </button>
-                </form>
-			</div>
-		</div>
-	</header>
-<?php
+//Para acciones exclusivas de clubes: corta si el usuario es admin o no tiene club. Devuelve el id del club
+function requerirClub() {
+    $id = clubDelUsuario();
+    if ($id === null) {
+        http_response_code(403);
+        exit("Acceso denegado");
+    }
+    return $id;
 }
-
-//Pie de pagina compartido
-function pie() {
-?>
-	<footer>
-		<br>
-		<hr>
-		<h2 align="center"> ¿Quiénes somos?</h2>
-        
-		<div class="grupo_bloques_footer">
-            
-			<div class="bloques_footer">
-				<p> Somos ANS Solutions, un grupo de desarrollo de software independiente localizado en Rivera, Uruguay.
-					Estamos especializados en la creacion de sitios webs y bases de datos para negocios y empresas grandes.
-				</p>
-			</div>
-			<div class="bloques_footer">
-                
-				<h3 align="center">Contactos: </h3>
-				<ul>
-                    
-					<li>Email: contacto@ANSsolutions.com</li>
-					<li>Teléfono: +598 091-981-722</li>
-				</ul>
-			</div>
-			<div class="bloques_footer">
-				<p>© Copyright 2026 ANS Solutions. Todos los derechos reservados. 
-					Ninguna parte de este sistema o sitio web será reproducido, de ninguna forma, 
-					incluyendo pero no limitando al host de un sitio web no autorizado por ANS Solutions.
-				</p>
-			</div>
-		</div>
-        <div class="franja_logo">
-            <img src="LOGO ANS SMALL.svg" width="100px" alt="ANS Solutions">
-        </div>
-		<br>
-		<br>
-	</footer>
-<?php
-}
-?>

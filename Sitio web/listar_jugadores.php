@@ -1,5 +1,5 @@
 <?php
-    require_once "baseDeDatos.php";
+    require_once "plantilla.php";
     requerirLogin();
 
     // Consulta de jugadores con su club y categoria en una sola consulta (con busqueda opcional)

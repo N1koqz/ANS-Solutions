@@ -42,9 +42,10 @@
                 <?php endif; ?>
 
                 <input class="input-email"
-                    type="email"
+                    type="text"
                     name="email"
-                    placeholder="Correo Electrónico"
+                    autocomplete="username"
+                    placeholder="Usuario o correo electrónico"
                     required
                     autofocus
                 >
@@ -56,7 +57,7 @@
                     required
                 >
                 <div class="botonIniciarSesion">
-                    <button type="submit" class="btnIniciarSesion" style="color: #8BA3C5">
+                    <button type="submit" class="btnIniciarSesion" style="color: #ffffff">
                         Iniciar Sesión
                     </button>
                 </div> 

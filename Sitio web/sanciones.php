@@ -1,5 +1,5 @@
 <?php
-	require_once "baseDeDatos.php";
+	require_once "plantilla.php";
 	requerirLogin(true);
 	require_once "editor.php";
 	procesarEditor("sanciones");
@@ -23,7 +23,7 @@
 				<input class="input-barraBusqueda"
 					type="search"
 					name="busqueda"
-					placeholder="Buscar Sanciones"
+					placeholder="Buscar Jugadores"
 					value="<?= htmlspecialchars(textoBusqueda()) ?>"
 					<?= esAdmin() ? "" : "autofocus" ?>
 				>
