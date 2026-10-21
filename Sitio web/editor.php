@@ -240,6 +240,48 @@
                 $volver(false, "El registro no existe");
             }
 
+            //Resetear la contraseña del usuario de un club (si el club no tenia usuario, se crea)
+            if ($accion === "resetear" && $tipo === "clubes") {
+                if ($id === "") {
+                    $volver(false, "Registro no indicado");
+                }
+                $clave = isset($_POST["clave"]) && is_string($_POST["clave"]) ? $_POST["clave"] : "";
+                if (strlen($clave) < 8 || strlen($clave) > 72) {
+                    $volver(false, "La contraseña debe tener entre 8 y 72 caracteres", $id);
+                }
+                $stmt = $conn->prepare("SELECT nombre FROM club WHERE id_club = ?");
+                $stmt->bind_param("s", $id);
+                $stmt->execute();
+                $club = $stmt->get_result()->fetch_assoc();
+                if (!$club) {
+                    $volver(false, "El club no existe");
+                }
+
+                $hash = password_hash($clave, PASSWORD_DEFAULT);
+                $stmt = $conn->prepare("SELECT 1 FROM usuario WHERE club = ? AND rol <> 'admin'");
+                $stmt->bind_param("s", $id);
+                $stmt->execute();
+                if ($stmt->get_result()->num_rows > 0) {
+                    $stmt = $conn->prepare("UPDATE usuario SET `contraseña` = ? WHERE club = ? AND rol <> 'admin'");
+                    $stmt->bind_param("ss", $hash, $id);
+                    $stmt->execute();
+                    $volver(true, "Contraseña restablecida", $id);
+                }
+
+                //El club no tenia usuario (por ejemplo, se creo antes de esta funcion): se crea con el nombre del club
+                $stmt = $conn->prepare("SELECT 1 FROM usuario WHERE email = ?");
+                $stmt->bind_param("s", $club["nombre"]);
+                $stmt->execute();
+                if ($stmt->get_result()->num_rows > 0) {
+                    $volver(false, "Ya existe otro usuario llamado " . $club["nombre"], $id);
+                }
+                $rol = "club";
+                $stmt = $conn->prepare("INSERT INTO usuario (nombre, email, `contraseña`, rol, club) VALUES (?, ?, ?, ?, ?)");
+                $stmt->bind_param("sssss", $club["nombre"], $club["nombre"], $hash, $rol, $id);
+                $stmt->execute();
+                $volver(true, "El club no tenía usuario: se creó con la contraseña indicada", $id);
+            }
+
             if ($accion !== "crear" && $accion !== "editar") {
                 $volver(false, "Accion invalida");
             }
@@ -472,6 +514,22 @@
 <?php endif; ?>
 				</div>
 			</form>
+
+<?php if ($tipo === "clubes" && $seleccionado): ?>
+			<form action="<?= htmlspecialchars($pagina) ?>" method="POST" autocomplete="off">
+				<?php $ocultos("resetear", (string)$seleccionado[$pk]); ?>
+				<h3>Contraseña de acceso</h3>
+				<div class="editor-campos">
+					<label>
+						<span>Nueva contraseña</span>
+						<input type="password" name="clave" minlength="8" maxlength="72" autocomplete="new-password" required>
+					</label>
+				</div>
+				<div class="editor-acciones">
+					<button type="submit" class="btn-guardar">Resetear contraseña</button>
+				</div>
+			</form>
+<?php endif; ?>
 		</section>
 <?php
     }

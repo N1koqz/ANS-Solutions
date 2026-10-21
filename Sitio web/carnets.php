@@ -2,6 +2,7 @@
 	require_once "plantilla.php";
 	requerirLogin(true);
 	require_once "procesar_carnets.php";
+	require_once "listar_carnets.php";
 	procesarCarnets();
 ?>
 <html>
@@ -30,6 +31,8 @@
 				<input type="image" class="botonBusqueda" alt="Buscar" src="search.svg">
 			</form>
 		</div>
+<?php if (esAdmin()): ?>
+		<h3 style="color:#23354D; margin: 20px 2% 0;">Todos los carnets</h3>
 		<div>
 			<table>
 				<thead>
@@ -46,10 +49,53 @@
 				</thead>
 
 				<tbody>
-<?php require "listar_carnets.php"; ?>
+<?php listarCarnets("todos"); ?>
 				</tbody>
 			</table>
 		</div>
+<?php else: ?>
+		<h3 style="color:#23354D; margin: 20px 2% 0;">Carnets de mi club</h3>
+		<div>
+			<table style="margin-bottom:30px">
+				<thead>
+					<tr>
+						<th>Cédula</th>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th>Club</th>
+						<th>Inicio de Validez</th>
+						<th>Vencimiento</th>
+						<th>Estado</th>
+						<th>Carnet</th>
+					</tr>
+				</thead>
+
+				<tbody>
+<?php listarCarnets("propio"); ?>
+				</tbody>
+			</table>
+		</div>
+		<h3 style="color:#23354D; margin: 20px 2% 0;">Carnets de otros clubes</h3>
+		<div>
+			<table>
+				<thead>
+					<tr>
+						<th>Cédula</th>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th>Club</th>
+						<th>Inicio de Validez</th>
+						<th>Vencimiento</th>
+						<th>Estado</th>
+					</tr>
+				</thead>
+
+				<tbody>
+<?php listarCarnets("otros"); ?>
+				</tbody>
+			</table>
+		</div>
+<?php endif; ?>
 
 	</main>
 

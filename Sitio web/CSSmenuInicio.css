@@ -167,6 +167,32 @@ a {
     height: 32px;
 }
 
+.usuarioActual {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'ElmsSans';
+
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 100px;
+    background-color: #000000;
+    border: none;
+    cursor: pointer;
+    transition: .3s ease;
+
+    color: #e6e6e6;
+    text-decoration: none;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.usuarioActual img {
+    filter: invert(1) brightness(0.9);
+    width: 32px;
+    height: 32px;
+}
+
 .btnClubes,
 .btnCarnets,
 .btnPartidos,
@@ -229,6 +255,7 @@ p {
     color: #ffffff; 
     font-family: 'Montserrat', sans-serif;
 }
+
 h2 {
     color: #ffffff;
     letter-spacing: 4px;
@@ -374,6 +401,10 @@ div.bloques_footer {
     height: 200px;
     z-index: 2;
     pointer-events: none;
+}
+
+header {
+    overflow: hidden;
 }
 
 @keyframes rotate {

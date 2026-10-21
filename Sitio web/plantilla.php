@@ -29,7 +29,7 @@ function menu() {
 	<header>
         <hr>
 		<div class="MGfut">
-			<h1> 
+			<h1>
                 <a href="menuInicio.php" class="logo">
 					<div class="red-container">
 						<div class="pelota">
@@ -56,6 +56,10 @@ function menu() {
                         <img src="log_off_icon.svg" alt="" width="20" height="20">
                     </button>
                 </form>
+				<span class="usuarioActual">
+					<img src="person-circle.svg" alt="" width="20" height="20">
+					Usuario: <?= htmlspecialchars((string)($_SESSION["email"] ?? "")) ?>
+				</span>
 			</div>
 		</div>
         <hr>
