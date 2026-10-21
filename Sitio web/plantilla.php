@@ -43,11 +43,11 @@ function menu() {
 				</a>
             </h1>
 			
-			<div class="botonesMenu">
-    <?php foreach ($botones as [$clase, $archivo, $texto]): ?>
+		<div class="botonesMenu" align="right">
+    		<?php foreach ($botones as [$clase, $archivo, $texto]): ?>
 				<a href="<?= htmlspecialchars($archivo) ?>"class="<?= htmlspecialchars($clase) ?>"><?= htmlspecialchars($texto) ?>
 				</a>
-<?php endforeach; ?>
+			<?php endforeach; ?>
 				<form action="login.php" method="POST" style="margin:0">
                     <input type="hidden" name="csrf" value="<?= tokenCsrf() ?>">
                     <input type="hidden" name="accion" value="salir">
