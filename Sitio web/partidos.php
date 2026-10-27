@@ -1,15 +1,15 @@
 <?php
-	require_once "plantilla.php";
+	require_once __DIR__ . "/aplicacion/inicio.php";
 	requerirLogin(true);
-	require_once "editor.php";
-	require_once "procesar_partidos.php";
+	require_once __DIR__ . "/aplicacion/editor/editor.php";
+	require_once __DIR__ . "/aplicacion/modulos/partidos/procesar_partidos.php";
 	procesarPartidos();
 ?>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title> MG Fut </title>
-	<link href="CSSmenuInicio.css" type="text/css" rel="stylesheet">
+	<link href="recursos/css/CSSmenuInicio.css" type="text/css" rel="stylesheet">
 <?php estilosEditor(); ?>
 </head>
 
@@ -28,7 +28,7 @@
 					value="<?= htmlspecialchars(textoBusqueda()) ?>"
 					<?= esAdmin() ? "" : "autofocus" ?>
 				>
-				<input type="image" class="botonBusqueda" alt="Buscar" src="search.svg">
+				<input type="image" class="botonBusqueda" alt="Buscar" src="recursos/imagenes/search.svg">
 			</form>
 		</div>
 		<div>
@@ -47,7 +47,7 @@
 				</thead>
 
 				<tbody>
-<?php require "listar_partidos.php"; ?>
+<?php require __DIR__ . "/aplicacion/modulos/partidos/listar_partidos.php"; ?>
 				</tbody>
 			</table>
 		</div>

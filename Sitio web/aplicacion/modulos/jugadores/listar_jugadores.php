@@ -1,5 +1,5 @@
 <?php
-    require_once "plantilla.php";
+    require_once __DIR__ . "/../../inicio.php";
     requerirLogin();
 
     // Consulta de jugadores con su club y categoria en una sola consulta (con busqueda opcional)

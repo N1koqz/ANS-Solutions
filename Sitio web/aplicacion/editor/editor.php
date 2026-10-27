@@ -1,10 +1,10 @@
 <?php
     //Editor integrado en jugadores.php, clubes.php, sanciones.php y estadisticas.php (solo se muestra a administradores)
     //Uso en cada pagina:
-    //  arriba de la pagina:  require_once "editor.php" y luego procesarEditor("jugadores")
+    //  arriba de la pagina:  require_once __DIR__ . "/aplicacion/editor/editor.php" y luego procesarEditor("jugadores")
     //  dentro del head:  estilosEditor()
     //  sobre la barra de busqueda:  mostrarEditor("jugadores")
-    require_once "baseDeDatos.php";
+    require_once __DIR__ . "/../inicio.php";
 
     //Lista blanca de tablas y columnas editables. Nada que venga del cliente decide nombres de tablas ni columnas
     function entidadesEditor() {
@@ -366,7 +366,7 @@
             return;
         }
 ?>
-	<link rel="stylesheet" href="CSSeditor.css">
+	<link rel="stylesheet" href="recursos/css/CSSeditor.css">
 <?php
     }
 

@@ -1,0 +1,15 @@
+ESTRUCTURA DEL PROYECTO
+
+(raiz)              Paginas que abre el navegador: index, login, menuInicio, clubes, jugadores,
+                    partidos, estadisticas, sanciones, carnets, carnet_imagen.
+aplicacion/         Codigo que NO se abre directo (bloqueado por .htaccess)
+  inicio.php          Punto de entrada: toda pagina empieza cargandolo
+  nucleo/             conexion (BD y sesion), permisos, csrf, busqueda
+  vistas/             plantilla.php (menu, pie, celdas de tabla)
+  editor/             editor.php (editor generico de clubes, jugadores, sanciones, estadisticas)
+  modulos/            un directorio por funcion: clubes, jugadores, partidos, sanciones,
+                      estadisticas, carnets (listados y procesamiento de cada uno)
+recursos/           css/, fuentes/, imagenes/
+almacenamiento/     carnets/ : imagenes de carnets subidas (protegidas; se ven por carnet_imagen.php)
+documentacion/      PDF, diagramas y enlace de documentacion
+obsoleto/           fixture.php (reemplazado por partidos.php)

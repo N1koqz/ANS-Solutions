@@ -1,5 +1,5 @@
 <?php
-    require_once "plantilla.php";
+    require_once __DIR__ . "/../../inicio.php";
 
     // Lista de sanciones para sanciones.php. Se llama dentro de un <tbody>:
     //   "todos"  -> todas las sanciones (admin, con boton de editar)

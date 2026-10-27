@@ -1,5 +1,5 @@
 <?php
-    require_once "plantilla.php";
+    require_once __DIR__ . "/../../inicio.php";
     requerirLogin();
 
     // Consulta de partidos con los nombres de ambos clubes (con busqueda opcional)

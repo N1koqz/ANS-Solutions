@@ -1,7 +1,7 @@
 <?php
     //Entrega la imagen de un carnet. Exige sesion y que el carnet sea de un jugador del club del usuario (o ser admin)
-    require_once "baseDeDatos.php";
-    require_once "procesar_carnets.php";
+    require_once __DIR__ . "/aplicacion/inicio.php";
+    require_once __DIR__ . "/aplicacion/modulos/carnets/procesar_carnets.php";
     requerirLogin();
 
     $id = filter_var($_GET["id"] ?? "", FILTER_VALIDATE_INT);

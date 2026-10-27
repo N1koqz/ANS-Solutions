@@ -1,5 +1,5 @@
 <?php
-	require_once "baseDeDatos.php";
+	require_once __DIR__ . "/aplicacion/inicio.php";
 
 	//Si ya hay sesion se va directo al menu
 	if (estaLogueado()) {
@@ -11,7 +11,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title> MG Fut </title>
-	<link href="CSSindex.css" type="text/css" rel="stylesheet">
+	<link href="recursos/css/CSSindex.css" type="text/css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 

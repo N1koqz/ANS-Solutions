@@ -1,5 +1,5 @@
 <?php
-    require_once "plantilla.php";
+    require_once __DIR__ . "/../../inicio.php";
     requerirLogin();
 
     // Estadisticas por partido y jugador (con busqueda opcional)

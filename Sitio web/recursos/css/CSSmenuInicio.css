@@ -1,34 +1,34 @@
 @font-face {
     font-family: 'Montserrat';
-    src: url('Montserrat-VariableFont_wght.ttf') format('truetype');
+    src: url('../fuentes/Montserrat-VariableFont_wght.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'ElmsSans';
-    src: url('ElmsSans-VariableFont_wght.ttf') format('truetype');
+    src: url('../fuentes/ElmsSans-VariableFont_wght.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'AnotherDanger';
-    src: url('AnotherDangerSlanted.otf') format('truetype');
+    src: url('../fuentes/AnotherDangerSlanted.otf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'DangerZoneWarning';
-    src: url('DangerZoneWarning.ttf') format('truetype');
+    src: url('../fuentes/DangerZoneWarning.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'College';
-    src: url('College.ttf') format('truetype');
+    src: url('../fuentes/College.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }

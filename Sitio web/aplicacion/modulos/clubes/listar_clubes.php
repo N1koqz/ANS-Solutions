@@ -1,5 +1,5 @@
 <?php
-    require_once "plantilla.php";
+    require_once __DIR__ . "/../../inicio.php";
     requerirLogin();
 
     // Consulta de clubes (con busqueda opcional)

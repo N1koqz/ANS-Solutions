@@ -1,5 +1,5 @@
 <?php
-    require_once "baseDeDatos.php";
+    require_once __DIR__ . "/aplicacion/inicio.php";
 
     //Solo se acepta POST
     if ($_SERVER["REQUEST_METHOD"] !== "POST") {

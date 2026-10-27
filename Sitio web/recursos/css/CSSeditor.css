@@ -1,13 +1,13 @@
 @font-face {
     font-family: 'Montserrat';
-    src: url('Montserrat-VariableFont_wght.ttf') format('truetype');
+    src: url('../fuentes/Montserrat-VariableFont_wght.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'ElmsSans';
-    src: url('ElmsSans-VariableFont_wght.ttf') format('truetype');
+    src: url('../fuentes/ElmsSans-VariableFont_wght.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }

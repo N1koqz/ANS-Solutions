@@ -1,9 +1,9 @@
 <?php
     //Logica de carnets de salud: subida (solo usuarios de club) y panel que se muestra en carnets.php
-    require_once "baseDeDatos.php";
+    require_once __DIR__ . "/../../inicio.php";
 
     //Las imagenes se guardan en una carpeta sin acceso directo desde el navegador; se sirven con carnet_imagen.php.
-    const DIR_CARNETS = __DIR__ . "/carnets";
+    const DIR_CARNETS = RAIZ . "/almacenamiento/carnets";
     const MAX_CARNET = 5 * 1024 * 1024; //5 MB
     const TIPOS_CARNET = ["image/jpeg" => "jpg", "image/png" => "png", "image/webp" => "webp"];
 

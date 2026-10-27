@@ -1,7 +1,7 @@
 <?php
 //Constructor de la pagina: HTML compartido (menu, pie, celdas de tabla).
 //No toca la base de datos; la conexion, sesion y permisos viven en baseDeDatos.php
-require_once "baseDeDatos.php";
+//La conexion, sesion y permisos los carga aplicacion/inicio.php (esta plantilla se carga desde alli)
 
 //Devuelve una celda de tabla con el valor escapado
 function celda($valor) {
@@ -11,7 +11,7 @@ function celda($valor) {
 //Columna de acciones, solo se imprime si el usuario es admin
 function botonesAdmin($pagina, $id) {
     if (esAdmin()) {
-        echo "<td><a class='botonEditar' href='" . $pagina . "?id=" . urlencode($id) . "#sel'><img src='edit_icon.svg' alt='Editar'></a></td>";
+        echo "<td><a class='botonEditar' href='" . $pagina . "?id=" . urlencode($id) . "#sel'><img src='recursos/imagenes/edit_icon.svg' alt='Editar'></a></td>";
     }
 }
 
@@ -33,10 +33,10 @@ function menu() {
                 <a href="menuInicio.php" class="logo">
 					<div class="red-container">
 						<div class="pelota">
-							<img src="soccerball.svg">
+							<img src="recursos/imagenes/soccerball.svg">
 						</div>
 
-						<img class="red" src="net.png">
+						<img class="red" src="recursos/imagenes/net.png">
 					</div>
 
 					<h1>MG FUT</h1>
@@ -53,11 +53,11 @@ function menu() {
                     <input type="hidden" name="accion" value="salir">
                     <button class="btnCerrarSesion" type="submit" style="color: #e6e6e6">
                         Cerrar sesión
-                        <img src="log_off_icon.svg" alt="" width="20" height="20">
+                        <img src="recursos/imagenes/log_off_icon.svg" alt="" width="20" height="20">
                     </button>
                 </form>
 				<span class="usuarioActual">
-					<img src="person-circle.svg" alt="" width="20" height="20">
+					<img src="recursos/imagenes/person-circle.svg" alt="" width="20" height="20">
 					Usuario: <?= htmlspecialchars((string)($_SESSION["email"] ?? "")) ?>
 				</span>
 			</div>
@@ -85,10 +85,10 @@ function pie() {
 			<div class="bloques_footer" align="center">
                 
 				<h3>Contactos:</h3>
-				<p><img src="envelope-fill.svg" style="filter: invert(1) brightness(0.9);width: 17px;height: 17px;">
+				<p><img src="recursos/imagenes/envelope-fill.svg" style="filter: invert(1) brightness(0.9);width: 17px;height: 17px;">
                     Email: contacto@ANSsolutions.com
                 </p>
-				<p><img src="telephone-fill.svg" style="filter: invert(1) brightness(0.9);width: 17px;height: 17px;">
+				<p><img src="recursos/imagenes/telephone-fill.svg" style="filter: invert(1) brightness(0.9);width: 17px;height: 17px;">
                     Teléfono: +598 091-981-722
                 </p>
 			</div>
@@ -101,7 +101,7 @@ function pie() {
 		</div>
         <hr>
         <div class="franja_logo">
-            <img src="LOGO ANS SMALL.svg" width="100px" alt="ANS Solutions">
+            <img src="recursos/imagenes/LOGO ANS SMALL.svg" width="100px" alt="ANS Solutions">
         </div>
 		<br>
         <hr>

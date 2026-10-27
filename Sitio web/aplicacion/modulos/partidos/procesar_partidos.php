@@ -1,7 +1,7 @@
 <?php
     //Logica de partidos: crear y concluir (solo admin) y el panel que se muestra en partidos.php
     //Uso en partidos.php:  procesarPartidos() antes del HTML  y  mostrarFormularioPartidos() dentro de <main>
-    require_once "baseDeDatos.php";
+    require_once __DIR__ . "/../../inicio.php";
 
     //Valida un entero dentro de un rango. Devuelve el entero o null
     function enteroEnRango($valor, $min, $max) {

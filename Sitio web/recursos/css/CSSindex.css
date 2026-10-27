@@ -1,13 +1,13 @@
 @font-face {
     font-family: 'Montserrat';
-    src: url('Montserrat-VariableFont_wght.ttf') format('truetype');
+    src: url('../fuentes/Montserrat-VariableFont_wght.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'ElmsSans';
-    src: url('ElmsSans-VariableFont_wght.ttf') format('truetype');
+    src: url('../fuentes/ElmsSans-VariableFont_wght.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -174,7 +174,7 @@ button:hover{
 .img-panel{
     width:70%;
     height:100vh;
-    background-image:url('soccer_field_login.jpg');
+    background-image:url('../imagenes/soccer_field_login.jpg');
     background-size:cover;
     background-position:center;
     position:relative;
@@ -186,7 +186,7 @@ button:hover{
     position:relative;
     background-size:cover;
     background-position:center;
-    background-image:url('LOGO\ ANS\ SMALL.svg');
+    background-image:url('../imagenes/LOGO\ ANS\ SMALL.svg');
     animation:fadeIn 1s ease;
     justify-self: center;
 }

@@ -1,15 +1,15 @@
 <?php
-	require_once "plantilla.php";
+	require_once __DIR__ . "/aplicacion/inicio.php";
 	requerirLogin(true);
-	require_once "editor.php";
+	require_once __DIR__ . "/aplicacion/editor/editor.php";
 	procesarEditor("sanciones");
-	require_once "listar_sanciones.php";
+	require_once __DIR__ . "/aplicacion/modulos/sanciones/listar_sanciones.php";
 ?>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title> MG Fut </title>
-	<link href="CSSmenuInicio.css" type="text/css" rel="stylesheet">
+	<link href="recursos/css/CSSmenuInicio.css" type="text/css" rel="stylesheet">
 <?php estilosEditor(); ?>
 </head>
 
@@ -28,7 +28,7 @@
 					value="<?= htmlspecialchars(textoBusqueda()) ?>"
 					<?= esAdmin() ? "" : "autofocus" ?>
 				>
-				<input type="image" class="botonBusqueda" alt="Buscar" src="search.svg">
+				<input type="image" class="botonBusqueda" alt="Buscar" src="recursos/imagenes/search.svg">
 			</form>
 		</div>
 <?php if (esAdmin()): ?>

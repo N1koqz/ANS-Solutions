@@ -1,5 +1,5 @@
 <?php
-    require_once "plantilla.php";
+    require_once __DIR__ . "/../../inicio.php";
 
     // Lista de carnets de salud para carnets.php. Se llama dentro de un <tbody>:
     //   "todos"  -> todos los carnets (solo admin)

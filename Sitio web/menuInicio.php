@@ -1,9 +1,9 @@
-<?php require_once "plantilla.php"; requerirLogin(true); ?>
+<?php require_once __DIR__ . "/aplicacion/inicio.php"; requerirLogin(true); ?>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title> MG Fut </title>
-	<link href="CSSmenuInicio.css" type="text/css" rel="stylesheet">
+	<link href="recursos/css/CSSmenuInicio.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
