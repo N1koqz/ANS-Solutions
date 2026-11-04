@@ -87,6 +87,7 @@
 						<th>Inicio de Validez</th>
 						<th>Vencimiento</th>
 						<th>Estado</th>
+						<th>Carnet</th>
 					</tr>
 				</thead>
 

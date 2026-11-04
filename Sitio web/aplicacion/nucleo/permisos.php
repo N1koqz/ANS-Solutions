@@ -14,7 +14,7 @@ function estaLogueado() {
 //Para paginas: redirige al login. Para listados incluidos: responde 401
 function requerirLogin($redirigir = false) {
     if (!estaLogueado()) {
-        if ($redirigir) {
+        if ($redirigir == true) {
             header("Location: index.php");
         } else {
             http_response_code(401);

@@ -12,4 +12,5 @@ require_once RAIZ . "/aplicacion/nucleo/conexion.php";
 require_once RAIZ . "/aplicacion/nucleo/permisos.php";
 require_once RAIZ . "/aplicacion/nucleo/csrf.php";
 require_once RAIZ . "/aplicacion/nucleo/busqueda.php";
+require_once RAIZ . "/aplicacion/nucleo/validaciones.php";
 require_once RAIZ . "/aplicacion/vistas/plantilla.php";

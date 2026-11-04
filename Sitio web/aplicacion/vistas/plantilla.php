@@ -29,26 +29,26 @@ function menu() {
 	<header>
         <hr>
 		<div class="MGfut">
-			<h1>
-                <a href="menuInicio.php" class="logo">
-					<div class="red-container">
-						<div class="pelota">
-							<img src="recursos/imagenes/soccerball.svg">
-						</div>
-
-						<img class="red" src="recursos/imagenes/net.png">
-					</div>
-
-					<h1>MG FUT</h1>
-				</a>
-            </h1>
+			<a href="menuInicio.php" class="logo" aria-label="MG FUT">
+				<span class="red-container" aria-hidden="true">
+					<span class="pelota">
+						<img src="recursos/imagenes/soccerball.svg" alt="">
+					</span>
+					<img class="red" src="recursos/imagenes/net.png" alt="">
+				</span>
+				<span class="logoTexto">MG FUT</span>
+			</a>
 			
 		<div class="botonesMenu" align="right">
     		<?php foreach ($botones as [$clase, $archivo, $texto]): ?>
 				<a href="<?= htmlspecialchars($archivo) ?>"class="<?= htmlspecialchars($clase) ?>"><?= htmlspecialchars($texto) ?>
 				</a>
 			<?php endforeach; ?>
-				<form action="login.php" method="POST" style="margin:0">
+			</div>
+		</div>
+        <hr>
+		<div class="usuarioIniciado"> 
+			<form action="login.php" method="POST" style="margin:0">
                     <input type="hidden" name="csrf" value="<?= tokenCsrf() ?>">
                     <input type="hidden" name="accion" value="salir">
                     <button class="btnCerrarSesion" type="submit" style="color: #e6e6e6">
@@ -60,9 +60,7 @@ function menu() {
 					<img src="recursos/imagenes/person-circle.svg" alt="" width="20" height="20">
 					Usuario: <?= htmlspecialchars((string)($_SESSION["email"] ?? "")) ?>
 				</span>
-			</div>
 		</div>
-        <hr>
 	</header>
 <?php
 }

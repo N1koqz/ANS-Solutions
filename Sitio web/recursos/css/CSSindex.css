@@ -130,10 +130,46 @@ form {
 .input-password{
     width:60%;
     padding:12px;
-    margin-bottom:15px;
     border:1px solid #ccc;
     border-radius:5px;
     font-size:16px;
+}
+
+.campo-password {
+    position: relative;
+    width: 60%;
+    margin-bottom: 15px;
+}
+
+.campo-password .input-password {
+    width: 100%;
+    padding-right: 44px;
+}
+
+.boton-ver-password {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 5px;
+    border: 0;
+    background: transparent;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.boton-ver-password img {
+    display: block;
+    width: 22px;
+    height: 22px;
+}
+
+.boton-ver-password:focus-visible {
+    outline: 2px solid #2a6e33;
+    outline-offset: 2px;
 }
 
 .botonIniciarSesion {
@@ -200,4 +236,58 @@ button:hover{
     to{
         opacity:1;
     }
+}
+
+.seccion-boletines {
+    margin: 24px auto;
+    padding: 20px;
+    width: min(1100px, 94%);
+    color: #202820;
+    background: #ffffff;
+    border-left: 5px solid #2a6e33;
+}
+
+.seccion-boletines h2,
+.seccion-boletines h3,
+.seccion-boletines p {
+    color: #202820;
+    letter-spacing: 0;
+}
+
+.boletin {
+    padding: 14px 0;
+    border-top: 1px solid #c9d0c8;
+}
+
+.boletin-cabecera {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: baseline;
+}
+
+.boletin-cabecera time {
+    color: #526052;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.enlaceBoletines {
+    display: inline-block;
+    color: #ffffff;
+}
+
+.volver-login {
+    margin: 20px 3%;
+}
+
+.volver-login a {
+    color: #202820;
+    font-family: 'Montserrat', sans-serif;
+}
+
+@media (max-width: 760px) {
+    .contenedor-general { height: auto; min-height: 100vh; }
+    .contenedor-lateral { width: 100%; }
+    .input-email, .campo-password { width: 100%; }
+    .boletin-cabecera { align-items: flex-start; flex-direction: column; }
 }

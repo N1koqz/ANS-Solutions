@@ -4,7 +4,7 @@
     // Lista de carnets de salud para carnets.php. Se llama dentro de un <tbody>:
     //   "todos"  -> todos los carnets (solo admin)
     //   "propio" -> carnets de los jugadores del club del usuario (con enlace a la imagen)
-    //   "otros"  -> carnets de los demas clubes (solo datos de validez, sin imagen)
+    //   "otros"  -> carnets de los demas clubes
     // Todas respetan la busqueda opcional
     function listarCarnets($modo) {
         global $conn;
@@ -55,9 +55,7 @@
                 echo celda($carnet[$columna]);
             }
             echo celda($estado);
-            if ($modo !== "otros") {
-                echo "<td><a href='carnet_imagen.php?id=" . (int)$carnet["id_carnet"] . "' target='_blank' rel='noopener' style='color:#ffffff'>Ver</a></td>";
-            }
+            echo "<td><a href='carnet_imagen.php?id=" . (int)$carnet["id_carnet"] . "' target='_blank' rel='noopener' style='color:#ffffff'>Ver</a></td>";
             echo "</tr>";
         }
     }

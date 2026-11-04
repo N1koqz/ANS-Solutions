@@ -56,7 +56,14 @@ a {
 .MGfut {
     display: flex;
     justify-content: space-between;
-    padding:5px
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    padding: 12px 18px;
+}
+
+.MGfut > .logo {
+    flex: 0 0 auto;
 }
 
 .barraBusqueda {
@@ -105,10 +112,12 @@ a {
 .botonesMenu {
     display: flex;
     flex-wrap: wrap;
-    padding: 12px;
-    gap: 5%;
+    flex: 1 1 720px;
+    justify-content: flex-end;
+    padding: 0;
+    gap: 8px;
     align-items: center;
-    width: 50%;
+    min-width: 0;
 }
 
 .btnCerrarSesion {
@@ -128,8 +137,9 @@ a {
     justify-content: center;
     font-family: 'ElmsSans';
 
-    font-size: 20px;
-    padding: 10px;
+    font-size: 18px;
+    min-height: 44px;
+    padding: 9px 12px;
     border-radius: 100px;
     background-color: #000000;
     border: none;
@@ -140,25 +150,25 @@ a {
     text-decoration: none;
     position: relative;
     box-sizing: border-box;
+    white-space: nowrap;
 }
 
-/* Anchos individuales */
 .btnCarnets,
 .btnPartidos,
 .btnClubes,
 .btnJugadores,
 .btnFixture {
-    width: 120px;
+    min-width: 108px;
 }
 
 .btnCerrarSesion {
-    width: 180px;
+    min-width: 150px;
     gap: 5px;
 }
 
 .btnEstadisticas,
 .btnSanciones {
-    width: 160px;
+    min-width: 138px;
 }
 
 .btnCerrarSesion img {
@@ -213,7 +223,7 @@ a {
 .btnSanciones:hover,
 .btnCerrarSesion:hover {
     background-color: #222222;
-    transform: scale(1.15);
+    transform: scale(1.04);
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
@@ -311,6 +321,81 @@ main{
     flex: 1;
 }
 
+.seccion-boletines {
+    max-width: 1100px;
+    margin: 24px auto;
+    padding: 20px;
+    color: #202820;
+    background: #f3f5f2;
+    border-left: 5px solid #2a6e33;
+}
+
+.seccion-boletines h2,
+.seccion-boletines h3,
+.seccion-boletines p {
+    color: #202820;
+    letter-spacing: 0;
+}
+
+.formulario-boletin {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr auto;
+    gap: 12px;
+    align-items: end;
+    padding: 0 0 18px;
+}
+
+.formulario-boletin label {
+    display: grid;
+    gap: 5px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.formulario-boletin input,
+.formulario-boletin textarea,
+.formulario-boletin select {
+    width: 100%;
+    padding: 8px;
+}
+
+.formulario-boletin button,
+.formulario-eliminar-boletin button {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.boletin {
+    padding: 14px 0;
+    border-top: 1px solid #c9d0c8;
+}
+
+.boletin-cabecera {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: baseline;
+}
+
+.boletin-cabecera time {
+    color: #526052;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.formulario-eliminar-boletin {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 0 0;
+}
+
+.boletin-mensaje.ok { color: #236331; }
+.boletin-mensaje.error { color: #a12525; }
+
+@media (max-width: 760px) {
+    .seccion-boletines { margin: 16px 3%; }
+    .formulario-boletin { grid-template-columns: 1fr; }
+    .boletin-cabecera { align-items: flex-start; flex-direction: column; }
+}
+
 div.grupo_bloques_footer {
     padding: 0px 100px;
     display: flex;
@@ -348,22 +433,20 @@ div.bloques_footer {
     text-decoration: none;
 }
 
-.logo h1 {
+.logoTexto {
     font-family: 'College', sans-serif;
-    margin: 0;
-    font-size: 4rem;
+    font-size: 3rem;
     font-style: italic;
-    letter-spacing: 50%;
-    position: absolute;
-    translate: 200px 5px;
+    letter-spacing: 0;
+    white-space: nowrap;
 
     animation: panning 1s cubic-bezier(0.33, 1, 0.68, 1) forwards;
 }
 
 .red-container {
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: 95px;
+    height: 90px;
     flex-shrink: 0;
     animation: panning 1.35s cubic-bezier(0.33, 1, 0.68, 1) forwards;
 }
@@ -376,35 +459,124 @@ div.bloques_footer {
     justify-content: center;
     z-index: 1;
 
-    translate: 55px 7px;
-
     animation: rotate 5s linear infinite;
     transform-origin: center;
 }
 
 .pelota img {
-    width: 100px;
-    height: 100px;
+    width: 68px;
+    height: 68px;
 }
 
 .red {
     position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-
-    translate: 0px -40px;
-
+    left: 35%;
+    top: 87%;
     width: 200px;
     height: 200px;
+    object-fit: contain;
     z-index: 2;
     pointer-events: none;
+    transform: translate(-50%, -50%);
 }
 
 header {
     overflow: hidden;
+}
+
+.usuarioIniciado {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+    padding: 12px 18px;
+    font-family: 'ElmsSans', sans-serif;
+}
+
+.usuarioActual {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 1100px) {
+    .MGfut {
+        justify-content: flex-start;
+    }
+
+    .botonesMenu {
+        flex-basis: 100%;
+        justify-content: center;
+    }
+
+    .usuarioIniciado {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .MGfut {
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .logo {
+        gap: 6px;
+    }
+
+    .logoTexto {
+        font-size: 2rem;
+    }
+
+    .red-container {
+        width: 68px;
+        height: 68px;
+    }
+
+    .pelota img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .red {
+        width: 150px;
+        height: 150px;
+    }
+
+    .botonesMenu {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+        gap: 8px;
+    }
+
+    .btnCarnets,
+    .btnPartidos,
+    .btnClubes,
+    .btnJugadores,
+    .btnFixture,
+    .btnEstadisticas,
+    .btnSanciones,
+    .btnCerrarSesion {
+        width: 100%;
+        min-width: 0;
+        padding: 8px;
+        font-size: 16px;
+    }
+
+    .usuarioIniciado {
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .usuarioIniciado form {
+        flex: 1 1 100%;
+    }
+
+    .usuarioActual {
+        font-size: 16px;
+        padding: 8px;
+    }
 }
 
 @keyframes rotate {

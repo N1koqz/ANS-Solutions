@@ -1,5 +1,5 @@
 <?php
-    //Entrega la imagen de un carnet. Exige sesion y que el carnet sea de un jugador del club del usuario (o ser admin)
+    //Entrega la imagen de un carnet a cualquier club con sesion activa, o al administrador.
     require_once __DIR__ . "/aplicacion/inicio.php";
     require_once __DIR__ . "/aplicacion/modulos/carnets/procesar_carnets.php";
     requerirLogin();
@@ -15,8 +15,8 @@
     $stmt->execute();
     $carnet = $stmt->get_result()->fetch_assoc();
 
-    //Mismo mensaje para "no existe" y "no es tuyo", asi no se revela que ids existen
-    $permitido = $carnet && (esAdmin() || ($carnet["id_club"] !== null && (int)$carnet["id_club"] === clubDelUsuario()));
+    //Solo los usuarios asignados a un club pueden consultar las imagenes de otros clubes.
+    $permitido = $carnet && (esAdmin() || clubDelUsuario() !== null);
     $ruta = $carnet ? DIR_CARNETS . "/" . basename($carnet["imagen"]) : "";
     if (!$permitido || !is_file($ruta)) {
         http_response_code(404);

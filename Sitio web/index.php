@@ -50,12 +50,18 @@
                     autofocus
                 >
 
-                <input class="input-password"
-                    type="password"
-                    name="password"
-                    placeholder="Contraseña"
-                    required
-                >
+                <div class="campo-password">
+                    <input class="input-password"
+                        id="passwordLogin"
+                        type="password"
+                        name="password"
+                        placeholder="Contraseña"
+                        required
+                    >
+                    <button class="boton-ver-password" type="button" id="alternarPassword" aria-label="Mantener presionado para ver la contraseña" aria-pressed="false">
+                        <img src="recursos/imagenes/eye.svg" alt="">
+                    </button>
+                </div>
                 <div class="botonIniciarSesion">
                     <button type="submit" class="btnIniciarSesion" style="color: #ffffff">
                         Iniciar Sesión
@@ -63,10 +69,36 @@
                 </div> 
             </form>
 
+            <div class="botonIniciarSesion">
+                <a class="btnIniciarSesion enlaceBoletines" href="prensa.php">Boletines de prensa</a>
+            </div>
+
         </div>
 
         <div class="img-panel"></div>
     </div>
+
+        <script>
+            const password = document.getElementById("passwordLogin");
+            const boton = document.getElementById("alternarPassword");
+            const icono = boton.querySelector("img");
+            const mostrar = (visible) => {
+                password.type = visible ? "text" : "password";
+                boton.setAttribute("aria-pressed", visible);
+                boton.setAttribute("aria-label", visible ? "Soltar para ocultar" : "Mantener presionado para ver");
+                icono.src = `recursos/imagenes/eye${visible ? "-off" : ""}.svg`;
+            };
+            const tecla = (event) => ["Space", "Enter"].includes(event.code);
+
+            boton.addEventListener("pointerdown", (event) => {
+                if (event.button === 0) { event.preventDefault(); mostrar(true); }
+            });
+            ["pointerup", "pointercancel"].forEach((tipo) => document.addEventListener(tipo, () => mostrar(false)));
+            boton.addEventListener("keydown", (event) => { if (tecla(event)) { event.preventDefault(); mostrar(true); } });
+            boton.addEventListener("keyup", (event) => { if (tecla(event)) mostrar(false); });
+            boton.addEventListener("blur", () => mostrar(false));
+            window.addEventListener("blur", () => mostrar(false));
+        </script>
 
 </body>
 </html>

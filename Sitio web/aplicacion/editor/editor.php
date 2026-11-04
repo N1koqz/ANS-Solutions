@@ -17,8 +17,9 @@
                 "auto" => false,
                 "etiqueta" => "CONCAT(nombre, ' ', apellido)",
                 "busqueda" => "CONCAT_WS(' ', ci, nombre, apellido, posicion)",
+                "regla" => "validarJugador",
                 "campos" => [
-                    "ci" => ["etiqueta" => "Cédula", "tipo" => "text", "max" => 15],
+                    "ci" => ["etiqueta" => "Cédula", "tipo" => "text", "max" => 15, "validacion" => "ci"],
                     "nombre" => ["etiqueta" => "Nombre", "tipo" => "text", "max" => 50],
                     "apellido" => ["etiqueta" => "Apellido", "tipo" => "text", "max" => 50],
                     "fecha_nacimiento" => ["etiqueta" => "Fecha de Nacimiento", "tipo" => "date"],
@@ -53,7 +54,7 @@
                 "etiqueta" => "CONCAT(tipo_sancion, ' (', ci, ')')",
                 "busqueda" => "CONCAT_WS(' ', id_sancion, ci, tipo_sancion, motivo)",
                 "campos" => [
-                    "ci" => ["etiqueta" => "Cédula del jugador", "tipo" => "number", "min" => 1, "max" => 2147483647, "paso" => 1, "entero" => true, "existe" => ["jugadores", "ci", "No existe ningún jugador con esa cédula"]],
+                    "ci" => ["etiqueta" => "Cédula del jugador", "tipo" => "number", "min" => 1, "max" => 2147483647, "paso" => 1, "entero" => true, "validacion" => "ci", "existe" => ["jugadores", "ci", "No existe ningún jugador con esa cédula"]],
                     "tipo_sancion" => ["etiqueta" => "Tipo de Sanción", "tipo" => "text", "max" => 50],
                     "motivo" => ["etiqueta" => "Motivo", "tipo" => "textarea", "max" => 255],
                     "fecha_sancion" => ["etiqueta" => "Fecha de Suspensión", "tipo" => "date"],
@@ -72,7 +73,7 @@
                 "campos" => [
                     "id_partido" => ["etiqueta" => "Partido", "tipo" => "select", "orden" => "t DESC", "origen" => ["partidos", "id_partido",
                         "CONCAT(fecha, ' - ', (SELECT nombre FROM club WHERE club.id_club = partidos.id_club_local), ' vs ', (SELECT nombre FROM club WHERE club.id_club = partidos.id_club_visitante))"]],
-                    "ci_jugador" => ["etiqueta" => "Cédula del jugador", "tipo" => "number", "min" => 1, "max" => 2147483647, "paso" => 1, "entero" => true, "existe" => ["jugadores", "ci", "No existe ningún jugador con esa cédula"]],
+                    "ci_jugador" => ["etiqueta" => "Cédula del jugador", "tipo" => "number", "min" => 1, "max" => 2147483647, "paso" => 1, "entero" => true, "validacion" => "ci", "existe" => ["jugadores", "ci", "No existe ningún jugador con esa cédula"]],
                     "goles" => ["etiqueta" => "Goles", "tipo" => "number", "min" => 0, "max" => 30, "paso" => 1, "entero" => true],
                     "asistencias" => ["etiqueta" => "Asistencias", "tipo" => "number", "min" => 0, "max" => 30, "paso" => 1, "entero" => true],
                     "amarillas" => ["etiqueta" => "Tarjetas amarillas", "tipo" => "number", "min" => 0, "max" => 2, "paso" => 1, "entero" => true],
@@ -103,7 +104,7 @@
         $stmt->execute();
         $jugador = $stmt->get_result()->fetch_assoc();
 
-        if (!$partido || !$jugador) {
+        if ($partido === null || $jugador === null) {
             return "Partido o jugador no válido";
         }
         $club = (int)$jugador["id_club"];
@@ -128,12 +129,49 @@
         return null;
     }
 
+    //Las edades de las categorias se indican en el nombre, por ejemplo "Sub 15" o "U15".
+    //Se limita la fecha de nacimiento al rango definido por la categoria de menor y mayor edad.
+    function validarJugador($conn, $v, $idActual) {
+        $hoy = new DateTimeImmutable("today");
+        $fechaNacimiento = new DateTimeImmutable($v["fecha_nacimiento"]);
+        if ($fechaNacimiento > $hoy) {
+            return "La fecha de nacimiento no puede estar en el futuro";
+        }
+
+        $categorias = $conn->query("SELECT nombre FROM categorias")->fetch_all(MYSQLI_ASSOC);
+        $edades = [];
+        foreach ($categorias as $categoria) {
+            if (preg_match('/\b(?:sub[\s-]*|u[\s-]*)(\d{1,2})\b/i', $categoria["nombre"], $coincidencia)) {
+                $edades[] = (int)$coincidencia[1];
+            }
+        }
+
+        //Si las categorias no expresan edades, no hay limites que calcular.
+        if (count($edades) === 0) {
+            return null;
+        }
+
+        $edadMasJoven = min($edades);
+        $edadMasVieja = max($edades);
+        $nacimientoMasAntiguo = $hoy->modify("-$edadMasVieja years");
+        $nacimientoMasNuevo = $hoy->modify("-$edadMasJoven years");
+
+        if ($fechaNacimiento < $nacimientoMasAntiguo || $fechaNacimiento > $nacimientoMasNuevo) {
+            return "La fecha de nacimiento debe estar dentro de las edades de las categorías registradas (" . $edadMasJoven . " a " . $edadMasVieja . " años)";
+        }
+        return null;
+    }
+
     //Valida un valor segun la definicion del campo. Devuelve el mensaje de error o null si es valido
     function validarCampo($conn, $campo, $valor) {
         if (!is_string($valor) || trim($valor) === "") {
             return $campo["etiqueta"] . " es obligatorio";
         }
         $valor = trim($valor);
+
+        if (($campo["validacion"] ?? "") === "ci" && cedulaUruguayaValida($valor) !== true) {
+            return $campo["etiqueta"] . " no tiene un formato o dígito verificador válido";
+        }
 
         switch ($campo["tipo"]) {
             case "number":
@@ -216,6 +254,20 @@
         };
 
         try {
+            //El alta de categorias comparte el editor de clubes y utiliza su misma proteccion CSRF.
+            if ($tipo === "clubes" && $accion === "crear_categoria") {
+                $nombreCategoria = isset($_POST["nombre_categoria"]) && is_string($_POST["nombre_categoria"])
+                    ? trim($_POST["nombre_categoria"])
+                    : "";
+                if ($nombreCategoria === "" || mb_strlen($nombreCategoria) > 50) {
+                    $volver(false, "El nombre de la categoría es obligatorio y admite hasta 50 caracteres");
+                }
+                $stmt = $conn->prepare("INSERT INTO categorias (nombre) VALUES (?)");
+                $stmt->bind_param("s", $nombreCategoria);
+                $stmt->execute();
+                $volver(true, "Categoría creada");
+            }
+
             if ($accion === "eliminar") {
                 if ($id === "") {
                     $volver(false, "Registro no indicado");
@@ -293,16 +345,20 @@
             $valores = [];
             foreach ($accion === "crear" ? $campos : $editables as $nombre => $campo) {
                 $error = validarCampo($conn, $campo, $datos[$nombre]);
-                if ($error) {
+                if ($error !== null) {
                     $volver(false, $error, $accion === "editar" ? $id : "", $datos);
                 }
-                $valores[$nombre] = trim($datos[$nombre]);
+                $valor = trim($datos[$nombre]);
+                if (($campo["validacion"] ?? "") === "ci") {
+                    $valor = normalizarCedulaUruguaya($valor);
+                }
+                $valores[$nombre] = $valor;
             }
 
             //Regla entre campos propia de la entidad (por ejemplo las estadisticas)
             if (!empty($entidad["regla"])) {
                 $error = $entidad["regla"]($conn, $valores, $accion === "editar" ? $id : "");
-                if ($error) {
+                if ($error !== null) {
                     $volver(false, $error, $accion === "editar" ? $id : "", $datos);
                 }
             }
@@ -362,7 +418,7 @@
 
     //Estilos del editor, para el <head> (solo se imprimen si el usuario es admin)
     function estilosEditor() {
-        if (!esAdmin()) {
+        if (esAdmin() !== true) {
             return;
         }
 ?>
@@ -375,7 +431,7 @@
         global $conn;
 
         //Los controles administrativos solo se dibujan para el rol admin
-        if (!esAdmin()) {
+        if (esAdmin() !== true) {
             return;
         }
 
@@ -451,8 +507,8 @@
 ?>
 		<section id="editor">
 			<h2>Editor de <?= htmlspecialchars($entidad["titulo"]) ?></h2>
-<?php if ($flash): ?>
-			<p class="mensaje <?= $flash["ok"] ? "ok" : "error" ?>" role="status"><?= htmlspecialchars($flash["texto"]) ?></p>
+<?php if ($flash !== null): ?>
+            <p class="mensaje <?= $flash["ok"] === true ? "ok" : "error" ?>" role="status"><?= htmlspecialchars($flash["texto"]) ?></p>
 <?php endif; ?>
 
 <?php if ($confirmando): ?>
@@ -486,6 +542,9 @@
 	$atributos = "";
 	if ($campo["tipo"] === "text") {
 		$atributos = "maxlength='" . $campo["max"] . "'";
+        if (($campo["validacion"] ?? "") === "ci") {
+            $atributos .= " inputmode='numeric' pattern='(?:[0-9]{7,8}|[0-9]{1,3}(?:[.][0-9]{3}){1,2}-[0-9])' title='Ingresá una cédula uruguaya válida'";
+        }
 	} elseif ($campo["tipo"] === "number") {
 		$atributos = "min='" . $campo["min"] . "' max='" . $campo["max"] . "' step='" . ($campo["paso"] ?? "any") . "'";
 	}
@@ -514,6 +573,22 @@
 <?php endif; ?>
 				</div>
 			</form>
+
+<?php if ($tipo === "clubes"): ?>
+            <form action="<?= htmlspecialchars($pagina) ?>" method="POST" autocomplete="off">
+                <?php $ocultos("crear_categoria"); ?>
+                <h3>Añadir categoría</h3>
+                <div class="editor-campos">
+                    <label>
+                        <span>Nombre (por ejemplo, Sub 15)</span>
+                        <input type="text" name="nombre_categoria" maxlength="50" required>
+                    </label>
+                </div>
+                <div class="editor-acciones">
+                    <button type="submit" class="btn-guardar">Añadir categoría</button>
+                </div>
+            </form>
+<?php endif; ?>
 
 <?php if ($tipo === "clubes" && $seleccionado): ?>
 			<form action="<?= htmlspecialchars($pagina) ?>" method="POST" autocomplete="off">

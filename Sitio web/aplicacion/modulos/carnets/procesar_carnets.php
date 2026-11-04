@@ -55,6 +55,9 @@
         if ($datos["fecha_vencimiento"] <= $datos["fecha_inicio"]) {
             $volver(false, "El vencimiento debe ser posterior al inicio de validez", true);
         }
+        if ($datos["fecha_inicio"] > date("Y-m-d")) {
+            $volver(false, "El carnet no puede entrar en vigencia después de hoy", true);
+        }
 
         //Validacion de la imagen: error de subida, tamaño, tipo real (no el que declara el navegador) y que sea una imagen decodificable
         $archivo = $_FILES["imagen"] ?? null;
@@ -145,7 +148,7 @@
 					</label>
 					<label>
 						<span>Inicio de validez</span>
-						<input type="date" name="fecha_inicio" value="<?= htmlspecialchars($datos["fecha_inicio"] ?? "") ?>" required>
+                        <input type="date" name="fecha_inicio" min="<?= date("Y-m-d") ?>" value="<?= htmlspecialchars($datos["fecha_inicio"] ?? "") ?>" required>
 					</label>
 					<label>
 						<span>Fecha de vencimiento</span>

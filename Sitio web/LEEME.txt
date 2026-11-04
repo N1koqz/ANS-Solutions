@@ -13,3 +13,7 @@ recursos/           css/, fuentes/, imagenes/
 almacenamiento/     carnets/ : imagenes de carnets subidas (protegidas; se ven por carnet_imagen.php)
 documentacion/      PDF, diagramas y enlace de documentacion
 obsoleto/           fixture.php (reemplazado por partidos.php)
+
+ACTUALIZACIONES
+- Para habilitar los boletines, ejecutar documentacion/migracion_boletines.sql en la base mgfut.
+- Las edades de categorías se detectan en nombres como "Sub 15" o "U15"; el rango de nacimiento se calcula con la categoría de menor y mayor edad.
