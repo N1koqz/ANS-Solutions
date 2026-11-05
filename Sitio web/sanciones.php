@@ -1,24 +1,23 @@
 <?php
-	require_once __DIR__ . "/aplicacion/inicio.php";
-	requerirLogin(true);
-	require_once __DIR__ . "/aplicacion/editor/editor.php";
-	procesarEditor("sanciones");
-	require_once __DIR__ . "/aplicacion/modulos/sanciones/listar_sanciones.php";
+require_once __DIR__ . "/aplicacion/inicio.php";
+requerirLogin(true);
+require_once __DIR__ . "/aplicacion/editor/sanciones/editor.php";
+procesarEditorSanciones();
+require_once __DIR__ . "/aplicacion/modulos/sanciones/listar_sanciones.php";
 ?>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title> MG Fut </title>
-	<link href="recursos/css/CSSmenuInicio.css" type="text/css" rel="stylesheet">
-<?php estilosEditor(); ?>
+    <meta charset="UTF-8">
+    <title>MG Fut</title>
+    <link href="recursos/css/CSSmenuInicio.css" type="text/css" rel="stylesheet">
+<?php estilosEditorSanciones(); ?>
 </head>
 
 <body>
-<?php menu(); ?>
-
+	<?php menu(); ?>
 	<main>
 		<br>
-<?php mostrarEditor("sanciones"); ?>
+		<?php mostrarEditorSanciones(); ?>
 		<div>
 			<form method="GET" class="barraBusqueda">
 				<input class="input-barraBusqueda"
@@ -31,80 +30,77 @@
 				<input type="image" class="botonBusqueda" alt="Buscar" src="recursos/imagenes/search.svg">
 			</form>
 		</div>
-<?php if (esAdmin()): ?>
-		<h3 style="color:#23354D; margin: 20px 2% 0;">Todas las sanciones</h3>
-		<div>
-			<table>
-				<thead>
-					<tr>
-						<th>ID Sanción</th>
-						<th>Cédula</th>
-						<th>Nombre</th>
-						<th>Apellido</th>
-						<th>Club</th>
-						<th>Tipo de Sanción</th>
-						<th>Motivo</th>
-						<th>Fecha de Suspensión</th>
-						<th>Fecha Límite</th>
-						<?php if (esAdmin()): ?><th>Acciones</th><?php endif; ?>
-					</tr>
-				</thead>
-
-				<tbody>
-<?php listarSanciones("todos"); ?>
-				</tbody>
-			</table>
-		</div>
-<?php else: ?>
-		<h3 style="color:#23354D; margin: 20px 2% 0;">Sanciones de mi club</h3>
-		<div>
-			<table style="margin-bottom:30px">
-				<thead>
-					<tr>
-						<th>ID Sanción</th>
-						<th>Cédula</th>
-						<th>Nombre</th>
-						<th>Apellido</th>
-						<th>Club</th>
-						<th>Tipo de Sanción</th>
-						<th>Motivo</th>
-						<th>Fecha de Suspensión</th>
-						<th>Fecha Límite</th>
-					</tr>
-				</thead>
-
-				<tbody>
-<?php listarSanciones("propio"); ?>
-				</tbody>
-			</table>
-		</div>
-		<h3 style="color:#23354D; margin: 20px 2% 0;">Sanciones de otros clubes</h3>
-		<div>
-			<table>
-				<thead>
-					<tr>
-						<th>ID Sanción</th>
-						<th>Cédula</th>
-						<th>Nombre</th>
-						<th>Apellido</th>
-						<th>Club</th>
-						<th>Tipo de Sanción</th>
-						<th>Motivo</th>
-						<th>Fecha de Suspensión</th>
-						<th>Fecha Límite</th>
-					</tr>
-				</thead>
-
-				<tbody>
-<?php listarSanciones("otros"); ?>
-				</tbody>
-			</table>
-		</div>
-<?php endif; ?>
-
+		<?php if (esAdmin()): ?>
+			<h3 style="color:#23354D; margin: 20px 2% 0;">Todas las sanciones</h3>
+			<div>
+				<table>
+					<thead>
+						<tr>
+							<th>ID Sanción</th>
+							<th>Cédula</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Club</th>
+							<th>Tipo de Sanción</th>
+							<th>Motivo</th>
+							<th>Fecha de Suspensión</th>
+							<th>Fecha Límite</th>
+							<?php if (esAdmin()): ?>
+								<th>Acciones</th>
+							<?php endif; ?>
+						</tr>
+					</thead>
+					<tbody>
+						<?php listarSanciones("todos"); ?>
+					</tbody>
+				</table>
+			</div>
+		<?php else: ?>
+			<h3 style="color:#23354D; margin: 20px 2% 0;">Sanciones de mi club</h3>
+			<div>
+				<table style="margin-bottom:30px">
+					<thead>
+						<tr>
+							<th>ID Sanción</th>
+							<th>Cédula</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Club</th>
+							<th>Tipo de Sanción</th>
+							<th>Motivo</th>
+							<th>Fecha de Suspensión</th>
+							<th>Fecha Límite</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php listarSanciones("propio"); ?>
+					</tbody>
+				</table>
+			</div>
+			<h3 style="color:#23354D; margin: 20px 2% 0;">Sanciones de otros clubes</h3>
+			<div>
+				<table>
+					<thead>
+						<tr>
+							<th>ID Sanción</th>
+							<th>Cédula</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Club</th>
+							<th>Tipo de Sanción</th>
+							<th>Motivo</th>
+							<th>Fecha de Suspensión</th>
+							<th>Fecha Límite</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php listarSanciones("otros"); ?>
+					</tbody>
+				</table>
+			</div>
+		<?php endif; ?>
 	</main>
-
-<?php pie(); ?>
+	<?php pie(); ?>
 
 </body>
 

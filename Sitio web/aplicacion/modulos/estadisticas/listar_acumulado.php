@@ -1,11 +1,12 @@
 <?php
-    require_once __DIR__ . "/../../inicio.php";
-    requerirLogin();
 
-    // Acumulado por jugador: partidos con estadisticas y totales (con busqueda opcional). Ordenado por goles
+require_once __DIR__ . "/../../inicio.php";
+requerirLogin();
 
-    $busqueda = patronBusqueda();
-    $stmt = $conn->prepare("
+// Acumulado por jugador: partidos con estadisticas y totales (con busqueda opcional). Ordenado por goles
+
+$busqueda = patronBusqueda();
+$stmt = $conn->prepare("
         SELECT j.ci, j.nombre, j.apellido, COALESCE(c.nombre, 'Sin club') AS club,
                COUNT(*) AS partidos, SUM(e.goles) AS goles, SUM(e.asistencias) AS asistencias,
                SUM(e.amarillas) AS amarillas, SUM(e.rojas) AS rojas
@@ -16,17 +17,28 @@
         GROUP BY j.ci, j.nombre, j.apellido, c.nombre
         ORDER BY goles DESC, asistencias DESC, j.apellido
     ");
-    $stmt->bind_param("s", $busqueda);
-    $stmt->execute();
-    $result = $stmt->get_result();
+$stmt->bind_param("s", $busqueda);
+$stmt->execute();
+$result = $stmt->get_result();
 
-    $puesto = 0;
-    while ($fila = $result->fetch_assoc()) {
-        $puesto++;
-        echo "<tr>" . celda($puesto);
-        foreach (["nombre", "apellido", "club", "partidos", "goles", "asistencias", "amarillas", "rojas"] as $columna) {
-            echo celda($fila[$columna]);
-        }
-        echo "</tr>";
+$puesto = 0;
+while ($fila = $result->fetch_assoc()) {
+    $puesto++;
+    echo "<tr>" . celda($puesto);
+    foreach (
+        [
+            "nombre",
+            "apellido",
+            "club",
+            "partidos",
+            "goles",
+            "asistencias",
+            "amarillas",
+            "rojas",
+        ]
+        as $columna
+    ) {
+        echo celda($fila[$columna]);
     }
-?>
+    echo "</tr>";
+}

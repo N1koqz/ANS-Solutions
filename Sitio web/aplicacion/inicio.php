@@ -1,4 +1,5 @@
 <?php
+
 //Punto de entrada unico de la aplicacion: toda pagina empieza con
 //    require_once __DIR__ . "/aplicacion/inicio.php";
 //Carga el nucleo (base de datos, sesion, permisos, CSRF, busqueda) y la plantilla (menu, pie, celdas).

@@ -1,9 +1,9 @@
 <?php
-	require_once __DIR__ . "/aplicacion/inicio.php";
-	requerirLogin(true);
-	require_once __DIR__ . "/aplicacion/modulos/carnets/procesar_carnets.php";
-	require_once __DIR__ . "/aplicacion/modulos/carnets/listar_carnets.php";
-	procesarCarnets();
+require_once __DIR__ . "/aplicacion/inicio.php";
+requerirLogin(true);
+require_once __DIR__ . "/aplicacion/modulos/carnets/procesar_carnets.php";
+require_once __DIR__ . "/aplicacion/modulos/carnets/listar_carnets.php";
+procesarCarnets();
 ?>
 <html>
 <head>
@@ -14,11 +14,10 @@
 </head>
 
 <body>
-<?php menu(); ?>
-
+	<?php menu(); ?>
 	<main>
 		<br>
-<?php mostrarFormularioCarnets(); ?>
+		<?php mostrarFormularioCarnets(); ?>
 		<div>
 			<form method="GET" class="barraBusqueda">
 				<input class="input-barraBusqueda"
@@ -31,76 +30,71 @@
 				<input type="image" class="botonBusqueda" alt="Buscar" src="recursos/imagenes/search.svg">
 			</form>
 		</div>
-<?php if (esAdmin()): ?>
-		<h3 style="color:#23354D; margin: 20px 2% 0;">Todos los carnets</h3>
-		<div>
-			<table>
-				<thead>
-					<tr>
-						<th>Cédula</th>
-						<th>Nombre</th>
-						<th>Apellido</th>
-						<th>Club</th>
-						<th>Inicio de Validez</th>
-						<th>Vencimiento</th>
-						<th>Estado</th>
-						<th>Carnet</th>
-					</tr>
-				</thead>
-
-				<tbody>
-<?php listarCarnets("todos"); ?>
-				</tbody>
-			</table>
-		</div>
-<?php else: ?>
-		<h3 style="color:#23354D; margin: 20px 2% 0;">Carnets de mi club</h3>
-		<div>
-			<table style="margin-bottom:30px">
-				<thead>
-					<tr>
-						<th>Cédula</th>
-						<th>Nombre</th>
-						<th>Apellido</th>
-						<th>Club</th>
-						<th>Inicio de Validez</th>
-						<th>Vencimiento</th>
-						<th>Estado</th>
-						<th>Carnet</th>
-					</tr>
-				</thead>
-
-				<tbody>
-<?php listarCarnets("propio"); ?>
-				</tbody>
-			</table>
-		</div>
-		<h3 style="color:#23354D; margin: 20px 2% 0;">Carnets de otros clubes</h3>
-		<div>
-			<table>
-				<thead>
-					<tr>
-						<th>Cédula</th>
-						<th>Nombre</th>
-						<th>Apellido</th>
-						<th>Club</th>
-						<th>Inicio de Validez</th>
-						<th>Vencimiento</th>
-						<th>Estado</th>
-						<th>Carnet</th>
-					</tr>
-				</thead>
-
-				<tbody>
-<?php listarCarnets("otros"); ?>
-				</tbody>
-			</table>
-		</div>
-<?php endif; ?>
-
+		<?php if (esAdmin()): ?>
+			<h3 style="color:#23354D; margin: 20px 2% 0;">Todos los carnets</h3>
+			<div>
+				<table>
+					<thead>
+						<tr>
+							<th>Cédula</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Club</th>
+							<th>Inicio de Validez</th>
+							<th>Vencimiento</th>
+							<th>Estado</th>
+							<th>Carnet</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php listarCarnets("todos"); ?>
+					</tbody>
+				</table>
+			</div>
+		<?php else: ?>
+			<h3 style="color:#23354D; margin: 20px 2% 0;">Carnets de mi club</h3>
+			<div>
+				<table style="margin-bottom:30px">
+					<thead>
+						<tr>
+							<th>Cédula</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Club</th>
+							<th>Inicio de Validez</th>
+							<th>Vencimiento</th>
+							<th>Estado</th>
+							<th>Carnet</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php listarCarnets("propio"); ?>
+					</tbody>
+				</table>
+			</div>
+			<h3 style="color:#23354D; margin: 20px 2% 0;">Carnets de otros clubes</h3>
+			<div>
+				<table>
+					<thead>
+						<tr>
+							<th>Cédula</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Club</th>
+							<th>Inicio de Validez</th>
+							<th>Vencimiento</th>
+							<th>Estado</th>
+							<th>Carnet</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php listarCarnets("otros"); ?>
+					</tbody>
+				</table>
+			</div>
+		<?php endif; ?>
 	</main>
-
-<?php pie(); ?>
+	<?php pie(); ?>
 
 </body>
 

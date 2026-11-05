@@ -6,7 +6,13 @@ aplicacion/         Codigo que NO se abre directo (bloqueado por .htaccess)
   inicio.php          Punto de entrada: toda pagina empieza cargandolo
   nucleo/             conexion (BD y sesion), permisos, csrf, busqueda
   vistas/             plantilla.php (menu, pie, celdas de tabla)
-  editor/             editor.php (editor generico de clubes, jugadores, sanciones, estadisticas)
+  editor/             editor.php (carga compartida); cada editor vive en su carpeta:
+    comun/              validaciones.php, procesar.php y vista.php (funciones compartidas)
+    clubes/             editor.php y configuracion.php
+    jugadores/          editor.php, configuracion.php y reglas.php
+    sanciones/          editor.php y configuracion.php
+    estadisticas/       editor.php, configuracion.php y reglas.php
+    partidos/           editor.php (conecta el editor de partidos)
   modulos/            un directorio por funcion: clubes, jugadores, partidos, sanciones,
                       estadisticas, carnets (listados y procesamiento de cada uno)
 recursos/           css/, fuentes/, imagenes/

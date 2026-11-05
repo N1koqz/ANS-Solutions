@@ -1,4 +1,5 @@
 <?php
+
 //Conexion a la base de datos, sesion y cabeceras. No define funciones de pagina
 date_default_timezone_set("America/Montevideo");
 
@@ -31,7 +32,7 @@ if (session_status() === PHP_SESSION_NONE) {
         "path" => "/",
         "httponly" => true,
         "samesite" => "Lax",
-        "secure" => !empty($_SERVER["HTTPS"])
+        "secure" => !empty($_SERVER["HTTPS"]),
     ]);
     session_start();
 }
@@ -40,7 +41,10 @@ if (session_status() === PHP_SESSION_NONE) {
 header("Cache-Control: no-store");
 
 //Cierra la sesion tras 30 minutos sin actividad
-if (isset($_SESSION["ultima_actividad"]) && time() - $_SESSION["ultima_actividad"] > 1800) {
+if (
+    isset($_SESSION["ultima_actividad"]) &&
+    time() - $_SESSION["ultima_actividad"] > 1800
+) {
     $_SESSION = [];
     session_regenerate_id(true);
 }
