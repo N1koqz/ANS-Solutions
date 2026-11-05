@@ -41,7 +41,7 @@ registrarEntidadEditor("jugadores", [
 	"busqueda" => "CONCAT_WS(' ', ci, nombre, apellido, posicion)",
 	"regla" => "validarJugador",
 	"campos" => [
-		"ci" => ["etiqueta" => "Cédula", "tipo" => "text", "max" => 15, "validacion" => "ci"],
+		"ci" => ["etiqueta" => "Cédula", "tipo" => "text", "max" => 8, "validacion" => "ci"],
 		"nombre" => ["etiqueta" => "Nombre", "tipo" => "text", "max" => 50],
 		"apellido" => ["etiqueta" => "Apellido", "tipo" => "text", "max" => 50],
 		"fecha_nacimiento" => ["etiqueta" => "Fecha de Nacimiento", "tipo" => "date"],

@@ -197,11 +197,7 @@ function validarValoresEditor($conn, $campos, $datos, $accion, $id, $entidad, $v
             $volver(false, $error, $accion === "editar" ? $id : "", $datos);
         }
 
-        $valor = trim($datos[$nombre]);
-        if (($campo["validacion"] ?? "") === "ci") {
-            $valor = normalizarCedulaUruguaya($valor);
-        }
-        $valores[$nombre] = $valor;
+        $valores[$nombre] = trim($datos[$nombre]);
     }
 
     if (!empty($entidad["regla"])) {

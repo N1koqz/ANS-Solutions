@@ -175,7 +175,7 @@ function atributosCampo($campo, $nombre, $pk, $seleccionado)
     if ($campo["tipo"] === "text") {
         $atributos = "maxlength='" . $campo["max"] . "'";
         if (($campo["validacion"] ?? "") === "ci") {
-            $atributos .= " inputmode='numeric' pattern='(?:[0-9]{7,8}|[0-9]{1,3}(?:[.][0-9]{3}){1,2}-[0-9])' title='Ingresá una cédula uruguaya válida'";
+            $atributos .= " inputmode='numeric' pattern='[0-9]{7,8}' title='Ingresá una cédula uruguaya válida, solo con números'";
         }
     } elseif ($campo["tipo"] === "number") {
         $atributos = "min='" . $campo["min"] . "' max='" . $campo["max"] . "' step='" . ($campo["paso"] ?? "any") . "'";
