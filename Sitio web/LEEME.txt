@@ -12,6 +12,7 @@ aplicacion/         Codigo que NO se abre directo (bloqueado por .htaccess)
     jugadores/          editor.php (configuracion de campos y validacion de edades)
     sanciones/          editor.php (configuracion de campos)
     estadisticas/       editor.php (configuracion de campos y validacion de partido)
+    carnets/            editor.php (formulario para subir carnets)
   modulos/            un directorio por funcion: clubes, jugadores, partidos, sanciones,
                       estadisticas, carnets (listados y procesamiento de cada uno)
 recursos/           css/, fuentes/, imagenes/
@@ -30,4 +31,5 @@ FLUJO DEL EDITOR
 5. mostrarEditor("jugadores") usa la vista común para dibujar el formulario.
 
 El editor común no define los campos de cada entidad. Cada editor los declara en su propio editor.php.
-Partidos usa su panel especializado en modulos/partidos/procesar_partidos.php.
+Partidos usa el formulario en editor/partidos/editor.php y su procesamiento en modulos/partidos/procesar_partidos.php.
+Carnets usa el formulario en editor/carnets/editor.php y su procesamiento en modulos/carnets/procesar_carnets.php.

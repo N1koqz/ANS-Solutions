@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/aplicacion/inicio.php";
 requerirLogin(true);
-require_once __DIR__ . "/aplicacion/modulos/carnets/procesar_carnets.php";
+require_once __DIR__ . "/aplicacion/editor/carnets/editor.php";
 require_once __DIR__ . "/aplicacion/modulos/carnets/listar_carnets.php";
 procesarCarnets();
 ?>

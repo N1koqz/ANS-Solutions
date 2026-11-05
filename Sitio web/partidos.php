@@ -2,7 +2,7 @@
 require_once __DIR__ . "/aplicacion/inicio.php";
 requerirLogin(true);
 require_once __DIR__ . "/aplicacion/editor/editor.php";
-require_once __DIR__ . "/aplicacion/modulos/partidos/procesar_partidos.php";
+require_once __DIR__ . "/aplicacion/editor/partidos/editor.php";
 procesarPartidos();
 ?>
 <html>
