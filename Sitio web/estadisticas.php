@@ -2,21 +2,21 @@
 require_once __DIR__ . "/aplicacion/inicio.php";
 requerirLogin(true);
 require_once __DIR__ . "/aplicacion/editor/estadisticas/editor.php";
-procesarEditorEstadisticas();
+procesarEditor("estadisticas");
 ?>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>MG Fut</title>
     <link href="recursos/css/CSSmenuInicio.css" type="text/css" rel="stylesheet">
-<?php estilosEditorEstadisticas(); ?>
+<?php estilosEditor(); ?>
 </head>
 
 <body>
     <?php menu(); ?>
     <main>
         <br>
-        <?php mostrarEditorEstadisticas(); ?>
+        <?php mostrarEditor("estadisticas"); ?>
         <div>
             <form method="GET" class="barraBusqueda">
                 <input class="input-barraBusqueda"

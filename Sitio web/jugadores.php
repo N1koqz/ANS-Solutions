@@ -2,7 +2,7 @@
 require_once __DIR__ . "/aplicacion/inicio.php";
 requerirLogin(true);
 require_once __DIR__ . "/aplicacion/editor/jugadores/editor.php";
-procesarEditorJugadores();
+procesarEditor("jugadores");
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,13 +10,13 @@ procesarEditorJugadores();
 		<meta charset="UTF-8">
 		<title> MG Fut </title>
 		<link href="recursos/css/CSSmenuInicio.css" type="text/css" rel="stylesheet">
-		<?php estilosEditorJugadores(); ?>
+		<?php estilosEditor(); ?>
 	</head>
 	<body>
 		<?php menu(); ?>
 		<main>
 			<br>
-			<?php mostrarEditorJugadores(); ?>
+			<?php mostrarEditor("jugadores"); ?>
 			<?php
 			$clubesFiltro = $conn->query("SELECT id_club, nombre FROM club ORDER BY nombre")->fetch_all(MYSQLI_ASSOC);
 			$categoriasFiltro = $conn->query("SELECT id_categoria, nombre FROM categorias ORDER BY nombre")->fetch_all(MYSQLI_ASSOC);

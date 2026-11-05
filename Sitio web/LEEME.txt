@@ -8,11 +8,10 @@ aplicacion/         Codigo que NO se abre directo (bloqueado por .htaccess)
   vistas/             plantilla.php (menu, pie, celdas de tabla)
   editor/             editor.php (carga compartida); cada editor vive en su carpeta:
     comun/              validaciones.php, procesar.php y vista.php (funciones compartidas)
-    clubes/             editor.php y configuracion.php
-    jugadores/          editor.php, configuracion.php y reglas.php
-    sanciones/          editor.php y configuracion.php
-    estadisticas/       editor.php, configuracion.php y reglas.php
-    partidos/           editor.php (conecta el editor de partidos)
+    clubes/             editor.php (configuracion de campos y funciones de clubes)
+    jugadores/          editor.php (configuracion de campos y validacion de edades)
+    sanciones/          editor.php (configuracion de campos)
+    estadisticas/       editor.php (configuracion de campos y validacion de partido)
   modulos/            un directorio por funcion: clubes, jugadores, partidos, sanciones,
                       estadisticas, carnets (listados y procesamiento de cada uno)
 recursos/           css/, fuentes/, imagenes/
@@ -21,5 +20,14 @@ documentacion/      PDF, diagramas y enlace de documentacion
 obsoleto/           fixture.php (reemplazado por partidos.php)
 
 ACTUALIZACIONES
-- Para habilitar los boletines, ejecutar documentacion/migracion_boletines.sql en la base mgfut.
 - Las edades de categorías se detectan en nombres como "Sub 15" o "U15"; el rango de nacimiento se calcula con la categoría de menor y mayor edad.
+
+FLUJO DEL EDITOR
+1. La pagina, por ejemplo jugadores.php, carga editor/jugadores/editor.php.
+2. Ese archivo define los campos y las reglas propias de jugadores.
+3. La pagina llama procesarEditor("jugadores") antes del HTML.
+4. El procesador común valida el formulario y guarda los datos.
+5. mostrarEditor("jugadores") usa la vista común para dibujar el formulario.
+
+El editor común no define los campos de cada entidad. Cada editor los declara en su propio editor.php.
+Partidos usa su panel especializado en modulos/partidos/procesar_partidos.php.

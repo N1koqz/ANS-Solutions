@@ -2,7 +2,7 @@
 require_once __DIR__ . "/aplicacion/inicio.php";
 requerirLogin(true);
 require_once __DIR__ . "/aplicacion/editor/clubes/editor.php";
-procesarEditorClubes();
+procesarEditor("clubes");
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,13 +10,13 @@ procesarEditorClubes();
         <meta charset="UTF-8">
         <title> MG Fut </title>
         <link href="recursos/css/CSSmenuInicio.css" type="text/css" rel="stylesheet">
-        <?php estilosEditorClubes(); ?>
+        <?php estilosEditor(); ?>
     </head>
     <body>
         <?php menu(); ?>
         <main>
             <br>
-            <?php mostrarEditorClubes(); ?>
+            <?php mostrarEditor("clubes"); ?>
             <form method="GET" class="barraBusqueda">
                 <input class="input-barraBusqueda"
                     type="search"

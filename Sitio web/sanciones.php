@@ -2,7 +2,7 @@
 require_once __DIR__ . "/aplicacion/inicio.php";
 requerirLogin(true);
 require_once __DIR__ . "/aplicacion/editor/sanciones/editor.php";
-procesarEditorSanciones();
+procesarEditor("sanciones");
 require_once __DIR__ . "/aplicacion/modulos/sanciones/listar_sanciones.php";
 ?>
 <html>
@@ -10,14 +10,14 @@ require_once __DIR__ . "/aplicacion/modulos/sanciones/listar_sanciones.php";
     <meta charset="UTF-8">
     <title>MG Fut</title>
     <link href="recursos/css/CSSmenuInicio.css" type="text/css" rel="stylesheet">
-<?php estilosEditorSanciones(); ?>
+<?php estilosEditor(); ?>
 </head>
 
 <body>
 	<?php menu(); ?>
 	<main>
 		<br>
-		<?php mostrarEditorSanciones(); ?>
+		<?php mostrarEditor("sanciones"); ?>
 		<div>
 			<form method="GET" class="barraBusqueda">
 				<input class="input-barraBusqueda"
