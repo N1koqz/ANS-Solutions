@@ -62,7 +62,7 @@ if (estaLogueado()) {
                     </div>
                 </form>
                 <div class="botonIniciarSesion">
-                    <a class="btnIniciarSesion enlaceBoletines" href="prensa.php" style="color: #ffffff">Boletines de prensa</a>
+                    <a class="btnIniciarSesion enlaceBoletines" href="prensa.php">Boletines de prensa</a>
                 </div>
             </div>
             <div class="img-panel"></div>

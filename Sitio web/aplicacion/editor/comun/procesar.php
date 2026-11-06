@@ -8,6 +8,15 @@ function procesarEditor($tipo)
         return;
     }
 
+    $accion = $_POST["accion"] ?? "";
+    $accionesValidas = ["crear", "editar", "eliminar"];
+    if ($tipo === "clubes") {
+        $accionesValidas[] = "resetear";
+    }
+    if (!in_array($accion, $accionesValidas, true)) {
+        return;
+    }
+
     requerirAdmin();
     verificarCsrf();
 
@@ -16,7 +25,6 @@ function procesarEditor($tipo)
     $pk = $entidad["pk"];
     $campos = $entidad["campos"];
     $editables = array_diff_key($campos, [$pk => true]);
-    $accion = $_POST["accion"] ?? "";
     $id = isset($_POST["id"]) && is_string($_POST["id"]) ? $_POST["id"] : "";
     $busqueda = isset($_POST["busqueda"]) && is_string($_POST["busqueda"])
         ? trim($_POST["busqueda"])
@@ -50,10 +58,6 @@ function procesarEditor($tipo)
     };
 
     try {
-        if ($tipo === "jugadores" && $accion === "crear_categoria") {
-            crearCategoria($conn, $volver);
-        }
-
         if ($accion === "eliminar") {
             eliminarRegistro($conn, $tipo, $tabla, $pk, $id, $volver);
         }
@@ -62,9 +66,6 @@ function procesarEditor($tipo)
             resetearClaveClub($conn, $id, $volver);
         }
 
-        if ($accion !== "crear" && $accion !== "editar") {
-            $volver(false, "Accion invalida");
-        }
         if ($accion === "editar" && $id === "") {
             $volver(false, "Registro no indicado");
         }
@@ -100,22 +101,6 @@ function procesarEditor($tipo)
             $accion === "eliminar" ? null : $datos,
         );
     }
-}
-
-function crearCategoria($conn, $volver)
-{
-    $nombre = isset($_POST["nombre_categoria"]) && is_string($_POST["nombre_categoria"])
-        ? trim($_POST["nombre_categoria"])
-        : "";
-    $anioActual = (int) date("Y");
-    if (!ctype_digit($nombre) || strlen($nombre) !== 4 || (int) $nombre < 1900 || (int) $nombre > $anioActual) {
-        $volver(false, "Ingresá un año de nacimiento de cuatro cifras entre 1900 y $anioActual");
-    }
-
-    $stmt = $conn->prepare("INSERT INTO categorias (nombre) VALUES (?)");
-    $stmt->bind_param("s", $nombre);
-    $stmt->execute();
-    $volver(true, "Categoría creada");
 }
 
 function eliminarRegistro($conn, $tipo, $tabla, $pk, $id, $volver)

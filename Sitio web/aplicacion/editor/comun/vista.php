@@ -134,39 +134,6 @@ function mostrarEditor($tipo)
             </div>
         </form>
 
-        <?php if ($tipo === "jugadores"): ?>
-            <form action="<?= htmlspecialchars($pagina) ?>" method="POST" autocomplete="off">
-                <?php $ocultos("crear_categoria"); ?>
-                <h3>Añadir categoría por año de nacimiento</h3>
-                <div class="editor-campos">
-                    <label>
-                        <span>Año de nacimiento (4 cifras)</span>
-                        <input type="number" name="nombre_categoria" min="1900" max="<?= date("Y") ?>" step="1" placeholder="2011" required>
-                    </label>
-                </div>
-                <div class="editor-acciones">
-                    <button type="submit" class="btn-guardar">Añadir categoría</button>
-                </div>
-            </form>
-            <?php
-            $categoriasRegistradas = $conn
-                ->query("SELECT nombre FROM categorias ORDER BY nombre DESC")
-                ->fetch_all(MYSQLI_ASSOC);
-            ?>
-            <div class="categorias-registradas">
-                <h3>Categorías registradas</h3>
-                <?php if (count($categoriasRegistradas) === 0): ?>
-                    <p>Todavía no hay categorías.</p>
-                <?php else: ?>
-                    <ul>
-                        <?php foreach ($categoriasRegistradas as $categoria): ?>
-                            <li><?= htmlspecialchars($categoria["nombre"]) ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php endif; ?>
-            </div>
-        <?php endif; ?>
-
         <?php if ($tipo === "clubes" && $seleccionado): ?>
             <form action="<?= htmlspecialchars($pagina) ?>" method="POST" autocomplete="off">
                 <?php $ocultos("resetear", (string) $seleccionado[$pk]); ?>

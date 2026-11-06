@@ -2,6 +2,7 @@
 require_once __DIR__ . "/aplicacion/inicio.php";
 requerirLogin(true);
 require_once __DIR__ . "/aplicacion/editor/clubes/editor.php";
+procesarCategoriasClubes();
 procesarEditor("clubes");
 ?>
 <!DOCTYPE html>
@@ -17,6 +18,7 @@ procesarEditor("clubes");
         <main>
             <br>
             <?php mostrarEditor("clubes"); ?>
+            <?php mostrarCategoriasClubes(); ?>
             <form method="GET" class="barraBusqueda">
                 <input class="input-barraBusqueda"
                     type="search"

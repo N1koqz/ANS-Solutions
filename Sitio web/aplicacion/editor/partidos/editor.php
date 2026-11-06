@@ -23,12 +23,15 @@ function procesarPartidos()
     if ($_SERVER["REQUEST_METHOD"] !== "POST") {
         return;
     }
+
+    $accion = $_POST["accion"] ?? "";
+    if (!in_array($accion, ["crear", "concluir"], true)) {
+        return;
+    }
+
     requerirAdmin();
     verificarCsrf();
 
-    $accion = isset($_POST["accion"]) && is_string($_POST["accion"])
-        ? $_POST["accion"]
-        : "";
     $campo = fn($nombre) => isset($_POST[$nombre]) && is_string($_POST[$nombre])
         ? trim($_POST[$nombre])
         : "";
@@ -44,8 +47,6 @@ function procesarPartidos()
             crearPartido($conn, $campo, $volver);
         } elseif ($accion === "concluir") {
             concluirPartido($conn, $campo, $volver);
-        } else {
-            $volver(false, "Accion invalida");
         }
     } catch (mysqli_sql_exception $e) {
         error_log("editor/partidos/editor.php: " . $e->getMessage());
@@ -192,11 +193,15 @@ function mostrarFormularioPartidos()
             <div class="editor-campos">
                 <label>
                     <span>Club local</span>
-                    <select name="id_club_local" required><?= $opciones($datos["id_club_local"] ?? "") ?></select>
+                    <select name="id_club_local" required>
+                        <?php $opciones($datos["id_club_local"] ?? ""); ?>
+                    </select>
                 </label>
                 <label>
                     <span>Club visitante</span>
-                    <select name="id_club_visitante" required><?= $opciones($datos["id_club_visitante"] ?? "") ?></select>
+                    <select name="id_club_visitante" required>
+                        <?php $opciones($datos["id_club_visitante"] ?? ""); ?>
+                    </select>
                 </label>
                 <label>
                     <span>Fecha</span>
