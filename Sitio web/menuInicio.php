@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/aplicacion/inicio.php";
 requerirLogin(true);
-require_once __DIR__ . "/aplicacion/modulos/boletines.php";
+require_once __DIR__ . "/aplicacion/modulos/boletines/boletines.php";
 procesarBoletines();
 ?>
 <html>

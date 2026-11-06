@@ -50,7 +50,7 @@ function procesarEditor($tipo)
     };
 
     try {
-        if ($tipo === "clubes" && $accion === "crear_categoria") {
+        if ($tipo === "jugadores" && $accion === "crear_categoria") {
             crearCategoria($conn, $volver);
         }
 
@@ -107,8 +107,9 @@ function crearCategoria($conn, $volver)
     $nombre = isset($_POST["nombre_categoria"]) && is_string($_POST["nombre_categoria"])
         ? trim($_POST["nombre_categoria"])
         : "";
-    if ($nombre === "" || mb_strlen($nombre) > 50) {
-        $volver(false, "El nombre de la categoría es obligatorio y admite hasta 50 caracteres");
+    $anioActual = (int) date("Y");
+    if (!ctype_digit($nombre) || strlen($nombre) !== 4 || (int) $nombre < 1900 || (int) $nombre > $anioActual) {
+        $volver(false, "Ingresá un año de nacimiento de cuatro cifras entre 1900 y $anioActual");
     }
 
     $stmt = $conn->prepare("INSERT INTO categorias (nombre) VALUES (?)");

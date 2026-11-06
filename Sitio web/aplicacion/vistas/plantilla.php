@@ -64,8 +64,9 @@ function menu()
 				</button>
 			</form>
 			<span class="usuarioActual">
-				<img src="recursos/imagenes/person-circle.svg" alt="" width="20" height="20">
+
 				Usuario: <?= htmlspecialchars((string) ($_SESSION["email"] ?? "")) ?>
+				<img src="recursos/imagenes/person-circle.svg" alt="" width="20" height="20">
 			</span>
 		</div>
 	</header>

@@ -14,14 +14,14 @@ aplicacion/         Codigo que NO se abre directo (bloqueado por .htaccess)
     estadisticas/       editor.php (configuracion de campos y validacion de partido)
     carnets/            editor.php (formulario para subir carnets)
   modulos/            un directorio por funcion: clubes, jugadores, partidos, sanciones,
-                      estadisticas, carnets (listados y procesamiento de cada uno)
+                      estadisticas, carnets y boletines (listados y procesamiento de cada uno)
 recursos/           css/, fuentes/, imagenes/
 almacenamiento/     carnets/ : imagenes de carnets subidas (protegidas; se ven por carnet_imagen.php)
 documentacion/      PDF, diagramas y enlace de documentacion
 obsoleto/           fixture.php (reemplazado por partidos.php)
 
 ACTUALIZACIONES
-- Las edades de categorías se detectan en nombres como "Sub 15" o "U15"; el rango de nacimiento se calcula con la categoría de menor y mayor edad.
+- Las categorías se nombran con el año de nacimiento de cuatro cifras; los jugadores deben estar entre el menor y el mayor año registrado.
 
 FLUJO DEL EDITOR
 1. La pagina, por ejemplo jugadores.php, carga editor/jugadores/editor.php.
@@ -31,5 +31,5 @@ FLUJO DEL EDITOR
 5. mostrarEditor("jugadores") usa la vista común para dibujar el formulario.
 
 El editor común no define los campos de cada entidad. Cada editor los declara en su propio editor.php.
-Partidos usa el formulario en editor/partidos/editor.php y su procesamiento en modulos/partidos/procesar_partidos.php.
+Partidos usa su formulario y procesamiento en editor/partidos/editor.php.
 Carnets usa el formulario en editor/carnets/editor.php y su procesamiento en modulos/carnets/procesar_carnets.php.

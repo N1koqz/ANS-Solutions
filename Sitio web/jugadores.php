@@ -34,7 +34,7 @@ procesarEditor("jugadores");
 						value="<?= htmlspecialchars(textoBusqueda()) ?>"
 						<?= esAdmin() ? "" : "autofocus" ?>
 					>
-					<select name="id_club" aria-label="Filtrar por club" onchange="this.form.submit()">
+					<select name="id_club" aria-label="Filtrar por club">
 						<option value="">Todos los clubes</option>
 						<?php foreach ($clubesFiltro as $club): ?>
 							<option value="<?= (int) $club["id_club"] ?>"<?= $clubSeleccionado === (string) $club["id_club"] ? " selected" : "" ?>>
@@ -42,7 +42,7 @@ procesarEditor("jugadores");
 							</option>
 						<?php endforeach; ?>
 					</select>
-					<select name="id_categoria" aria-label="Filtrar por categoría" onchange="this.form.submit()">
+					<select name="id_categoria" aria-label="Filtrar por categoría">
 						<option value="">Todas las categorías</option>
 						<?php foreach ($categoriasFiltro as $categoria): ?>
 							<option value="<?= (int) $categoria["id_categoria"] ?>"<?= $categoriaSeleccionada === (string) $categoria["id_categoria"] ? " selected" : "" ?>>
@@ -51,7 +51,7 @@ procesarEditor("jugadores");
 						<?php endforeach; ?>
 					</select>
 					<input type="image" class="botonBusqueda" alt="Buscar" src="recursos/imagenes/search.svg">
-					<a href="jugadores.php">Limpiar</a>
+					<a href="jugadores.php" class="btnJugadores">Limpiar</a>
 				</form>
 			</div>
 			<div>

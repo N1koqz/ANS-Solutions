@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . "/aplicacion/inicio.php";
 requerirLogin(true);
-require_once __DIR__ . "/aplicacion/editor/editor.php";
 require_once __DIR__ . "/aplicacion/editor/partidos/editor.php";
 procesarPartidos();
 ?>
@@ -10,7 +9,7 @@ procesarPartidos();
     <meta charset="UTF-8">
     <title>MG Fut</title>
     <link href="recursos/css/CSSmenuInicio.css" type="text/css" rel="stylesheet">
-<?php estilosEditor(); ?>
+    <link href="recursos/css/CSSeditor.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>

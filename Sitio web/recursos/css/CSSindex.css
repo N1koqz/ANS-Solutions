@@ -175,7 +175,8 @@ form {
 .botonIniciarSesion {
     display: flex;
     justify-content: center;
-    padding: 5px
+    padding: 5px;
+    text-decoration: none;
 }
 
 .btnIniciarSesion {
@@ -186,10 +187,29 @@ form {
     border-width: 0px;
     cursor: pointer;
     transition: .3s ease;
+    text-decoration: none;
 }
 
 .btnIniciarSesion:hover {
     background-color: #222222;
+    transform: scale(1.04);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btnIniciarSesion::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background-color: #e6e6e6;
+    transition: .3s ease;
+    transform: translateX(-50%);
+}
+
+.btnIniciarSesion:hover::after {
+    width: 80%;
 }
 
 /*

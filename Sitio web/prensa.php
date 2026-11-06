@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . "/aplicacion/inicio.php";
-require_once __DIR__ . "/aplicacion/modulos/boletines.php";
+require_once __DIR__ . "/aplicacion/modulos/boletines/boletines.php";
 ?>
 <!DOCTYPE html>
 <html lang="es">
