@@ -1,9 +1,9 @@
 <?php
+//Página de clubes: administra el formulario y muestra el listado.
 require_once __DIR__ . "/aplicacion/inicio.php";
 requerirLogin(true);
 require_once __DIR__ . "/aplicacion/editor/clubes/editor.php";
-procesarCategoriasClubes();
-procesarEditor("clubes");
+procesarClubes();
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,14 +11,13 @@ procesarEditor("clubes");
         <meta charset="UTF-8">
         <title> MG Fut </title>
         <link href="recursos/css/CSSmenuInicio.css" type="text/css" rel="stylesheet">
-        <?php estilosEditor(); ?>
+        <link href="recursos/css/CSSeditor.css" type="text/css" rel="stylesheet">
     </head>
     <body>
         <?php menu(); ?>
         <main>
             <br>
-            <?php mostrarEditor("clubes"); ?>
-            <?php mostrarCategoriasClubes(); ?>
+            <?php mostrarEditorClubes(); ?>
             <form method="GET" class="barraBusqueda">
                 <input class="input-barraBusqueda"
                     type="search"

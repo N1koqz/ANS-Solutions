@@ -1,8 +1,9 @@
 <?php
+//Página de jugadores: editor, filtros por club/categoría y resultados.
 require_once __DIR__ . "/aplicacion/inicio.php";
 requerirLogin(true);
 require_once __DIR__ . "/aplicacion/editor/jugadores/editor.php";
-procesarEditor("jugadores");
+procesarJugadores();
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,13 +11,13 @@ procesarEditor("jugadores");
 		<meta charset="UTF-8">
 		<title> MG Fut </title>
 		<link href="recursos/css/CSSmenuInicio.css" type="text/css" rel="stylesheet">
-		<?php estilosEditor(); ?>
+		<link href="recursos/css/CSSeditor.css" type="text/css" rel="stylesheet">
 	</head>
 	<body>
 		<?php menu(); ?>
 		<main>
 			<br>
-			<?php mostrarEditor("jugadores"); ?>
+			<?php mostrarEditorJugadores(); ?>
 			<?php
 			$clubesFiltro = $conn->query("SELECT id_club, nombre FROM club ORDER BY nombre")->fetch_all(MYSQLI_ASSOC);
 			$categoriasFiltro = $conn->query("SELECT id_categoria, nombre FROM categorias ORDER BY nombre")->fetch_all(MYSQLI_ASSOC);

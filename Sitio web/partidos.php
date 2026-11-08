@@ -1,4 +1,5 @@
 <?php
+//Página de partidos: carga el editor propio y muestra los encuentros registrados.
 require_once __DIR__ . "/aplicacion/inicio.php";
 requerirLogin(true);
 require_once __DIR__ . "/aplicacion/editor/partidos/editor.php";

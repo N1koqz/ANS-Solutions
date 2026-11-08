@@ -1,8 +1,9 @@
 <?php
+//Página de sanciones: permite administrarlas y consultar las de cada club.
 require_once __DIR__ . "/aplicacion/inicio.php";
 requerirLogin(true);
 require_once __DIR__ . "/aplicacion/editor/sanciones/editor.php";
-procesarEditor("sanciones");
+procesarSanciones();
 require_once __DIR__ . "/aplicacion/modulos/sanciones/listar_sanciones.php";
 ?>
 <html>
@@ -10,14 +11,14 @@ require_once __DIR__ . "/aplicacion/modulos/sanciones/listar_sanciones.php";
     <meta charset="UTF-8">
     <title>MG Fut</title>
     <link href="recursos/css/CSSmenuInicio.css" type="text/css" rel="stylesheet">
-<?php estilosEditor(); ?>
+    <link href="recursos/css/CSSeditor.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
 	<?php menu(); ?>
 	<main>
 		<br>
-		<?php mostrarEditor("sanciones"); ?>
+		<?php mostrarEditorSanciones(); ?>
 		<div>
 			<form method="GET" class="barraBusqueda">
 				<input class="input-barraBusqueda"

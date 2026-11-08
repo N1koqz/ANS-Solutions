@@ -1,4 +1,5 @@
 <?php
+//Página de carnets: gestiona subidas y permite consultar carnets según el rol.
 require_once __DIR__ . "/aplicacion/inicio.php";
 requerirLogin(true);
 require_once __DIR__ . "/aplicacion/editor/carnets/editor.php";

@@ -51,7 +51,11 @@ if (estaLogueado()) {
                             placeholder="Contraseña"
                             required
                         >
-                        <button class="boton-ver-password" type="button" id="alternarPassword" onpointerdown="togglePassword(true)" onpointerup="togglePassword(false)" onpointerleave="togglePassword(false)" onpointercancel="togglePassword(false)" aria-label="Mantener presionado para ver la contraseña">
+                        <button class="boton-ver-password" type="button" id="alternarPassword" 
+                            onpointerdown="togglePassword(true)" 
+                            onpointerup="togglePassword(false)" 
+                            onpointerleave="togglePassword(false)" 
+                            onpointercancel="togglePassword(false)" aria-label="Mantener presionado para ver la contraseña">
                             <img src="recursos/imagenes/eye.svg" alt="">
                         </button>
                     </div>

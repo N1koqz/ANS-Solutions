@@ -4,6 +4,7 @@ require_once __DIR__ . "/../../inicio.php";
 //Guarda y elimina boletines. Solo el administrador puede modificar publicaciones.
 function procesarBoletines()
 {
+    //Solo procesa formularios de alta/eliminación enviados por un administrador.
     if (
         $_SERVER["REQUEST_METHOD"] !== "POST" ||
         !isset($_POST["boletin_accion"])
@@ -15,6 +16,7 @@ function procesarBoletines()
     verificarCsrf();
     global $conn;
 
+    //Valida título, contenido y audiencia antes de guardar una publicación.
     $accion = is_string($_POST["boletin_accion"])
         ? $_POST["boletin_accion"]
         : "";
@@ -101,6 +103,7 @@ function mostrarBoletines($audiencia, $administrar = false)
         return;
     }
 
+    //El administrador ve todo; clubes y prensa solo reciben su audiencia.
     if ($audiencia === "todos") {
         $result = $conn->query(
             "SELECT id_boletin, titulo, contenido, audiencia, creado_en FROM boletines ORDER BY creado_en DESC, id_boletin DESC",

@@ -1,4 +1,5 @@
 <?php
+//Página pública con los boletines destinados a prensa.
 require_once __DIR__ . "/aplicacion/inicio.php";
 require_once __DIR__ . "/aplicacion/modulos/boletines/boletines.php";
 ?>

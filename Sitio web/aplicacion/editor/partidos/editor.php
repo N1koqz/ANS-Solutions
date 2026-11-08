@@ -1,12 +1,14 @@
 <?php
 require_once __DIR__ . "/../../inicio.php";
 
+//Convierte un entero válido o devuelve null si sale del rango.
 function enteroEnRango($valor, $min, $max)
 {
     $numero = filter_var($valor, FILTER_VALIDATE_INT);
     return $numero !== false && $numero >= $min && $numero <= $max ? $numero : null;
 }
 
+//Verifica que el club elegido siga registrado.
 function existeClub($conn, $id)
 {
     $stmt = $conn->prepare("SELECT 1 FROM club WHERE id_club = ?");
@@ -16,10 +18,12 @@ function existeClub($conn, $id)
 }
 
 //Procesa las acciones del editor de partidos y vuelve al formulario.
+//Procesa las acciones de crear un partido o cargar su resultado.
 function procesarPartidos()
 {
     global $conn;
 
+    //Solo acepta crear un partido nuevo o concluir uno programado.
     if ($_SERVER["REQUEST_METHOD"] !== "POST") {
         return;
     }
@@ -54,8 +58,10 @@ function procesarPartidos()
     }
 }
 
+//Valida clubes, fecha y estadio antes de programar un partido.
 function crearPartido($conn, $campo, $volver)
 {
+    //Valida que ambos clubes existan y que los datos del encuentro sean válidos.
     $datos = [
         "id_club_local" => $campo("id_club_local"),
         "id_club_visitante" => $campo("id_club_visitante"),
@@ -86,8 +92,10 @@ function crearPartido($conn, $campo, $volver)
     $volver(true, "Partido creado");
 }
 
+//Carga el resultado solo si el partido sigue programado.
 function concluirPartido($conn, $campo, $volver)
 {
+    //Solo carga el resultado si el partido aún no tiene goles.
     $id = enteroEnRango($campo("id"), 1, PHP_INT_MAX);
     $datos = [
         "goles_local" => $campo("goles_local"),
@@ -123,6 +131,7 @@ function mostrarFormularioPartidos()
         return;
     }
 
+    //Busca un encuentro programado si se está entrando a cargar su resultado.
     $flash = $_SESSION["flash"] ?? null;
     unset($_SESSION["flash"]);
     $datos = $flash["datos"] ?? [];

@@ -1,5 +1,5 @@
 <?php
-
+//valida el acceso, cierra la sesión y redirige según el resultado.
 require_once __DIR__ . "/aplicacion/inicio.php";
 
 //Solo se acepta POST

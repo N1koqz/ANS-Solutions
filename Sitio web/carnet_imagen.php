@@ -2,7 +2,7 @@
 
 //Entrega la imagen de un carnet a cualquier club con sesion activa, o al administrador.
 require_once __DIR__ . "/aplicacion/inicio.php";
-require_once __DIR__ . "/aplicacion/modulos/carnets/procesar_carnets.php";
+require_once __DIR__ . "/aplicacion/editor/carnets/editor.php";
 requerirLogin();
 
 $id = filter_var($_GET["id"] ?? "", FILTER_VALIDATE_INT);
