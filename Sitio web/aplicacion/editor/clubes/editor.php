@@ -18,7 +18,7 @@ function procesarClubes()
     }
 
     $accion = $_POST["accion"] ?? "";
-    $acciones = ["crear", "editar", "eliminar", "resetear", "crear_categoria"];
+    $acciones = ["crear", "editar", "eliminar", "resetear"];
     if (!in_array($accion, $acciones, true)) {
         return;
     }
@@ -45,9 +45,6 @@ function procesarClubes()
 
     try {
         //Las acciones especiales se atienden antes del guardado normal del club.
-        if ($accion === "crear_categoria") {
-            crearCategoriaClubes($conn, $volver);
-        }
         if ($accion === "resetear") {
             resetearClaveClub($conn, $id, $volver);
         }
@@ -149,23 +146,6 @@ function eliminarClub($conn, $id, $volver, &$transaccion)
     $conn->commit();
     $transaccion = false;
     $volver(true, "Club eliminado");
-}
-
-//Registra el año de nacimiento que se usará como categoría.
-function crearCategoriaClubes($conn, $volver)
-{
-    $anio = isset($_POST["nombre_categoria"]) && is_string($_POST["nombre_categoria"])
-        ? trim($_POST["nombre_categoria"])
-        : "";
-    $anioActual = (int) date("Y");
-    if (!ctype_digit($anio) || strlen($anio) !== 4 || (int) $anio < 1900 || (int) $anio > $anioActual) {
-        $volver(false, "Ingresá un año de nacimiento de cuatro cifras entre 1900 y $anioActual");
-    }
-
-    $stmt = $conn->prepare("INSERT INTO categorias (nombre) VALUES (?)");
-    $stmt->bind_param("s", $anio);
-    $stmt->execute();
-    $volver(true, "Categoría creada");
 }
 
 //Cambia la contraseña del usuario del club o lo crea si falta.
@@ -275,38 +255,6 @@ function mostrarEditorClubes()
                 <label>Nueva contraseña <input type="password" name="clave" minlength="8" maxlength="72" required></label>
                 <button type="submit">Restablecer contraseña</button>
             </form>
-        <?php endif; ?>
-        <?php mostrarCategoriasClubes(); ?>
-    </section>
-    <?php
-}
-
-//Muestra los años de nacimiento registrados para asignarlos a jugadores.
-function mostrarCategoriasClubes()
-{
-    global $conn;
-    if (esAdmin() !== true) {
-        return;
-    }
-
-    $categorias = $conn->query("SELECT nombre FROM categorias ORDER BY nombre DESC")->fetch_all(MYSQLI_ASSOC);
-    ?>
-    <section class="editor-categorias">
-        <h2>Categorías por año de nacimiento</h2>
-        <form action="clubes.php" method="POST" autocomplete="off">
-            <input type="hidden" name="csrf" value="<?= tokenCsrf() ?>">
-            <input type="hidden" name="accion" value="crear_categoria">
-            <label>Año de nacimiento <input type="number" name="nombre_categoria" min="1900" max="<?= date("Y") ?>" step="1" placeholder="2011" required></label>
-            <button type="submit" class="btn-guardar">Añadir categoría</button>
-        </form>
-        <?php if (count($categorias) === 0): ?>
-            <p>Todavía no hay categorías.</p>
-        <?php else: ?>
-            <ul>
-                <?php foreach ($categorias as $categoria): ?>
-                    <li><?= htmlspecialchars($categoria["nombre"]) ?></li>
-                <?php endforeach; ?>
-            </ul>
         <?php endif; ?>
     </section>
     <?php

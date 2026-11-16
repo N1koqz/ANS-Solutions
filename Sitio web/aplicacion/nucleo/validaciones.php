@@ -1,6 +1,6 @@
 <?php
 
-//Validaciones compartidas por formularios y procesos del sistema.
+//Validacion de la cedula
 
 function cedulaUruguayaValida($cedula)
 {
@@ -16,7 +16,7 @@ function cedulaUruguayaValida($cedula)
     $verificador = (int) substr($cedula, -1);
     $base = substr($cedula, 0, -1);
     $ponderaciones =
-        strlen($base) === 7 ? [8, 1, 2, 3, 4, 7, 6] : [1, 2, 3, 4, 7, 6];
+        strlen($base) === 7 ? [2, 9, 8, 7, 6, 3, 4] : [9, 8, 7, 6, 3, 4];
     $suma = 0;
 
     foreach (str_split($base) as $indice => $digito) {

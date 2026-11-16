@@ -7,7 +7,7 @@ aplicacion/         Codigo que NO se abre directo (bloqueado por .htaccess)
   nucleo/             conexion (BD y sesion), permisos, csrf, busqueda
   vistas/             plantilla.php (menu, pie, celdas de tabla)
   editor/             Un editor independiente por sección:
-    clubes/             editor.php (clubes, categorías y usuarios)
+    clubes/             editor.php (clubes y usuarios)
     jugadores/          editor.php (jugadores, filtros y año de nacimiento)
     sanciones/          editor.php (sanciones)
     estadisticas/       editor.php (estadísticas y reglas del partido)

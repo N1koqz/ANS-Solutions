@@ -134,16 +134,23 @@ function validarDatosJugador($conn, $datos)
 	$stmt->bind_param("i", $datos["id_categoria"]);
 	$stmt->execute();
 	$categoria = $stmt->get_result()->fetch_assoc();
-	if ($categoria === null || !ctype_digit($categoria["nombre"]) || strlen($categoria["nombre"]) !== 4) {
+	if ($categoria === null) {
 		return "El año de nacimiento seleccionado no existe";
 	}
 
-	//compara el año del jugador con los años de categoría disponibles.
-	$anios = $conn->query("SELECT nombre FROM categorias")->fetch_all(MYSQLI_ASSOC);
-	$anios = array_map(fn($fila) => (int) $fila["nombre"], $anios);
-	$anio = (int) $fecha->format("Y");
-	if ($anio < min($anios) || $anio > max($anios)) {
-		return "El año del jugador debe estar dentro de los años de nacimiento registrados";
+	$esFemenina = strcasecmp(trim((string) $categoria["nombre"]), "Femenina") === 0;
+	if (!$esFemenina) {
+		if (!ctype_digit($categoria["nombre"]) || strlen($categoria["nombre"]) !== 4) {
+			return "El año de nacimiento seleccionado no existe";
+		}
+
+		//Compara el año del jugador con los años de categoría disponibles.
+		$anios = $conn->query("SELECT nombre FROM categorias")->fetch_all(MYSQLI_ASSOC);
+		$anios = array_map(fn($fila) => (int) $fila["nombre"], $anios);
+		$anio = (int) $fecha->format("Y");
+		if ($anio < min($anios) || $anio > max($anios)) {
+			return "El año del jugador debe estar dentro de los años de nacimiento registrados";
+		}
 	}
 	return null;
 }
