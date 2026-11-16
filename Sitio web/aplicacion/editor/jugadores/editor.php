@@ -135,13 +135,13 @@ function validarDatosJugador($conn, $datos)
 	$stmt->execute();
 	$categoria = $stmt->get_result()->fetch_assoc();
 	if ($categoria === null) {
-		return "El año de nacimiento seleccionado no existe";
+		return "La categoria seleccionada no existe";
 	}
 
 	$esFemenina = strcasecmp(trim((string) $categoria["nombre"]), "Femenina") === 0;
 	if (!$esFemenina) {
 		if (!ctype_digit($categoria["nombre"]) || strlen($categoria["nombre"]) !== 4) {
-			return "El año de nacimiento seleccionado no existe";
+			return "La categoria seleccionada no existe";
 		}
 
 		//Compara el año del jugador con los años de categoría disponibles.
@@ -205,7 +205,7 @@ function mostrarEditorJugadores()
 						<?php endforeach; ?>
 					</select>
 				</label>
-				<label>Año de nacimiento
+				<label>Categoría
 					<select name="id_categoria" required>
 						<option value="">Seleccionar...</option>
 						<?php foreach ($categorias as $categoria): ?>
