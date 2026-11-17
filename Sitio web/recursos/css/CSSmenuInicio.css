@@ -131,6 +131,7 @@ a {
 .btnCerrarSesion,
 .btnFixture,
 .btnEstadisticas,
+.btnPosiciones,
 .btnSanciones {
     display: inline-flex;
     align-items: center;
@@ -167,6 +168,7 @@ a {
 }
 
 .btnEstadisticas,
+.btnPosiciones,
 .btnSanciones {
     min-width: 138px;
 }
@@ -211,6 +213,7 @@ a {
 .btnJugadores,
 .btnFixture,
 .btnEstadisticas,
+.btnPosiciones,
 .btnSanciones,
 .btnCerrarSesion {
     position: relative;
@@ -222,6 +225,7 @@ a {
 .btnJugadores:hover,
 .btnFixture:hover,
 .btnEstadisticas:hover,
+.btnPosiciones:hover,
 .btnSanciones:hover,
 .btnCerrarSesion:hover {
     background-color: #222222;
@@ -235,6 +239,7 @@ a {
 .btnJugadores::after,
 .btnFixture::after,
 .btnEstadisticas::after,
+.btnPosiciones::after,
 .btnSanciones::after,
 .btnCerrarSesion::after {
     content: "";
@@ -253,6 +258,7 @@ a {
 .btnJugadores:hover::after,
 .btnFixture:hover::after,
 .btnEstadisticas:hover::after,
+.btnPosiciones:hover::after,
 .btnSanciones:hover::after,
 .btnCerrarSesion:hover::after {
     width: 80%;
@@ -321,6 +327,107 @@ tbody tr:nth-child(even) {
 }
 main{
     flex: 1;
+}
+
+.posiciones {
+    padding: 20px 2% 40px;
+}
+
+.posiciones h1,
+.posiciones h2,
+.posiciones p {
+    color: #23354d;
+}
+
+.posiciones h1 {
+    letter-spacing: 3px;
+}
+
+.posiciones section {
+    margin: 30px 0;
+}
+
+.filtro-liga {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    width: fit-content;
+    max-width: 100%;
+    padding: 14px 18px;
+    border: 1px solid #d5dfd6;
+    border-radius: 12px;
+    background: #f3f7f3;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.filtro-liga label {
+    color: #23354d;
+    font-weight: 700;
+}
+
+.filtro-liga select,
+.filtro-liga button {
+    min-height: 44px;
+    padding: 10px 16px;
+    border: 1px solid #2a6e33;
+    border-radius: 8px;
+    font: inherit;
+    transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.filtro-liga select {
+    min-width: 180px;
+    color: #23354d;
+    background: #fff;
+    cursor: pointer;
+}
+
+.filtro-liga select:hover {
+    border-color: #174e20;
+}
+
+.filtro-liga button {
+    color: #fff;
+    background: #2a6e33;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.filtro-liga button:hover {
+    border-color: #174e20;
+    background: #174e20;
+}
+
+.filtro-liga select:focus-visible,
+.filtro-liga button:focus-visible {
+    outline: 3px solid #23354d;
+    outline-offset: 3px;
+}
+
+.filtro-liga button:active {
+    background: #103918;
+}
+
+.posiciones .aviso-posiciones {
+    padding: 12px;
+    border-left: 4px solid #a36900;
+    background: #fff3d4;
+}
+
+.aviso-posiciones a {
+    color: #23354d;
+    text-decoration: underline;
+}
+
+.tabla-posiciones {
+    overflow-x: auto;
+}
+
+.tabla-posiciones table {
+    width: 100%;
+    min-width: 650px;
+    margin: 10px 0 0;
 }
 
 .seccion-boletines {
@@ -558,6 +665,7 @@ header {
     .btnJugadores,
     .btnFixture,
     .btnEstadisticas,
+    .btnPosiciones,
     .btnSanciones,
     .btnCerrarSesion {
         width: 100%;

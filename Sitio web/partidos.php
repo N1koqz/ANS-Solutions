@@ -17,7 +17,15 @@ procesarPartidos();
     <?php menu(); ?>
     <main>
         <br>
-        <?php mostrarFormularioPartidos(); ?>
+        <?php
+        try {
+            mostrarFormularioPartidos();
+        } catch (mysqli_sql_exception $error) {
+            error_log("Error al cargar el editor de partidos: " . $error->getMessage());
+            http_response_code(500);
+            echo "<p class='mensaje error'>No se pudo cargar el editor de partidos. Revisá la base de datos.</p>";
+        }
+        ?>
         <div>
             <form method="GET" class="barraBusqueda">
                 <input class="input-barraBusqueda"
@@ -35,6 +43,8 @@ procesarPartidos();
                 <thead>
                     <tr>
                         <th>Fecha</th>
+                        <th>Categoría</th>
+                        <th>Liga</th>
                         <th>Estadio</th>
                         <th>Local</th>
                         <th>Resultado</th>

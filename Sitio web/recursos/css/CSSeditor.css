@@ -95,6 +95,7 @@ h3 {
 .editor-acciones {
     display: flex;
     gap: 10px;
+    padding: 15px 0px;
     margin-top: 18px;
     flex-wrap: wrap;
 }

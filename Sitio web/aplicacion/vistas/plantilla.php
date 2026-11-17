@@ -28,6 +28,7 @@ function menu()
         ["btnClubes", "clubes.php", "Clubes"],
         ["btnJugadores", "jugadores.php", "Jugadores"],
         ["btnPartidos", "partidos.php", "Partidos"],
+        ["btnPosiciones", "posiciones.php", "Posiciones"],
         ["btnEstadisticas", "estadisticas.php", "Estadísticas"],
         ["btnSanciones", "sanciones.php", "Sanciones"],
         ["btnCarnets", "carnets.php", "Carnets"],

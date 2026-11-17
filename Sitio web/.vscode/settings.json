@@ -1,3 +1,9 @@
 {
-    "explorerLineCount.maxFileSize": 50
+    "explorerLineCount.maxFileSize": 50,
+    "chat.tools.terminal.autoApprove": {
+        "/^Get-Command php -ErrorAction SilentlyContinue \\| Select-Object -ExpandProperty Source; Test-Path 'C:\\\\xampp\\\\php\\\\php\\.exe'; Test-Path 'C:\\\\xampp\\\\mysql\\\\bin\\\\mysql\\.exe'; if \\(Test-Path 'C:\\\\xampp\\\\mysql\\\\bin\\\\mysql\\.exe'\\) \\{ & 'C:\\\\xampp\\\\mysql\\\\bin\\\\mysql\\.exe' --connect-timeout=3 -h 127\\.0\\.0\\.1 -u root -D mgfut -e 'SHOW TABLES; SHOW COLUMNS FROM partidos; SHOW COLUMNS FROM categorias; SHOW COLUMNS FROM club;' \\}$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
 }

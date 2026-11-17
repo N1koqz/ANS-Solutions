@@ -1,7 +1,7 @@
 ESTRUCTURA DEL PROYECTO
 
 (raiz)              Paginas que abre el navegador: index, login, menuInicio, clubes, jugadores,
-                    partidos, estadisticas, sanciones, carnets, carnet_imagen.
+                    partidos, posiciones, estadisticas, sanciones, carnets, carnet_imagen.
 aplicacion/         Codigo que NO se abre directo (bloqueado por .htaccess)
   inicio.php          Punto de entrada: toda pagina empieza cargandolo
   nucleo/             conexion (BD y sesion), permisos, csrf, busqueda
@@ -14,13 +14,22 @@ aplicacion/         Codigo que NO se abre directo (bloqueado por .htaccess)
     partidos/           editor.php (crear partidos y cargar resultados)
     carnets/            editor.php (subir carnets)
   modulos/            un directorio por funcion: clubes, jugadores, partidos, sanciones,
-                      estadisticas, carnets y boletines (listados y procesamiento de cada uno)
+                      posiciones, estadisticas, carnets y boletines (listados y procesamiento de cada uno)
+  migraciones/        cambios de estructura de la base de datos para aplicar manualmente
 recursos/           css/, fuentes/, imagenes/
 almacenamiento/     carnets/ : imagenes de carnets subidas (protegidas; se ven por carnet_imagen.php)
 documentacion/      PDF, diagramas y enlace de documentacion
 
 ACTUALIZACIONES
 - Las categorías se nombran con el año de nacimiento de cuatro cifras; los jugadores deben estar entre el menor y el mayor año registrado.
+- Para usar posiciones, ejecutar una vez aplicacion/migraciones/agregar_categoria_partidos.sql en la base mgfut.
+- Para registrar y filtrar partidos por liga, ejecutar una vez aplicacion/migraciones/agregar_liga_partidos.sql en mgfut.
+- Al crear partidos es obligatorio seleccionar categoría y Liga de Oro o Liga de Plata.
+  Los administradores pueden asignar la categoría o liga faltantes desde Partidos, o corregir la liga.
+  Los partidos sin categoría o liga no se cuentan hasta que se les asigne.
+  Posiciones permite seleccionar una liga y muestra todos los clubes en cada categoría,
+  incluso sin partidos: victoria 3 puntos, empate 1, derrota 0; desempate por diferencia de goles,
+  goles a favor y nombre del club. Los partidos programados no se cuentan.
 
 FLUJO DEL EDITOR
 Cada página carga su editor específico. Ese archivo contiene el formulario y su procesamiento.
